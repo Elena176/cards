@@ -17,7 +17,7 @@ import s from './cards.module.css';
 export const Cards = (): ReturnComponentType => {
   const errorNetworkMessage = useAppSelector(getErrorNetworkMessage);
   const cards = useAppSelector(state => state.cards.cards);
-  const userId = useAppSelector(state => state.profilePage.profile._id);
+  const userId = useAppSelector(state => state.profilePage._id);
   console.log('cards', cards);
   const dispatch = useDispatch();
   // const navigate = useNavigate();

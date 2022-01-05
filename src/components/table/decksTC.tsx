@@ -136,7 +136,7 @@ export const setDecksTC = (): AppThunk => (dispatch: Dispatch, getState) => {
 };
 export const setMyDecksTC = (): AppThunk => (dispatch: Dispatch, getState) => {
   const { page, pageCount } = getState().decks;
-  const { _id } = getState().profilePage.profile;
+  const { _id } = getState().profilePage;
   dispatch(setAppStatusAC(requestStatus.loading));
   decksAPI
     .fetchMyDecks(page, pageCount, _id)

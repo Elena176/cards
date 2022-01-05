@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 
 import noneAvatarImage from '../../assets/avatar.png';
-import { InitialStateProfileType } from '../../store/reducers/profile';
+import { InitialStateProfileType, setUserDataAC } from '../../store/reducers/profile';
 import { CustomButton } from '../customButton';
 
 import { profileAPI } from 'api/loginApi';
@@ -12,7 +12,6 @@ import { Preloader } from 'components/preloader/Preloader';
 import { PATH } from 'enum/pathes';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { getIsDataLoaded, RootStoreType } from 'store';
-import { setUserDataAC } from 'store/reducers/login';
 import { getStatus } from 'store/selectors/app/appSelectors';
 import style from 'style/Common.module.css';
 import { ReturnComponentType } from 'types';
@@ -23,10 +22,10 @@ export const Profile = (): ReturnComponentType => {
   );
   const isAuth = useAppSelector(getIsDataLoaded);
   const isLoading = useAppSelector(getStatus);
-  const { avatar } = userData.profile;
+  const { avatar } = userData;
 
-  const [name, setName] = useState(userData.profile.name);
-  const [email, setEmail] = useState(userData.profile.email);
+  const [name, setName] = useState(userData.name);
+  const [email, setEmail] = useState(userData.email);
   const [editMode, setEditMode] = useState<boolean>(false);
 
   const dispatch = useDispatch();
@@ -72,45 +71,45 @@ export const Profile = (): ReturnComponentType => {
         <Preloader />
       ) : (
         <div className={style.content}>
-          <h2> Profile </h2>
-          <img
-            alt="avatar_image"
-            className={style.avatar}
-            src={avatar !== null ? avatar : noneAvatarImage}
-          />
-          <input type="file" className={style.avatar} onChange={onPhotoSelected} />
-          <br />
-          {editMode ? (
-            <input
-              name="name"
-              value={name}
-              onChange={onChangeHandlerName}
-              onBlur={hideEditForm}
+          <div className={style.contentWrap}>
+            <h2> Profile </h2>
+            <img
+              alt="avatar_image"
+              className={style.avatar}
+              src={avatar !== null ? avatar : noneAvatarImage}
             />
-          ) : (
-            <span onDoubleClick={activateEditForm}> userName: {name}</span>
-          )}
-          <br />
-          {editMode ? (
-            <input
-              name="email"
-              value={email}
-              onChange={onChangeHandlerEmail}
-              onBlur={hideEditForm}
-            />
-          ) : (
-            <span onDoubleClick={activateEditForm}> userEmail: {email}</span>
-          )}
-          <br />
+            <input type="file" className={style.avatar} onChange={onPhotoSelected} />
+            {editMode ? (
+              <input
+                name="name"
+                value={name}
+                onChange={onChangeHandlerName}
+                onBlur={hideEditForm}
+              />
+            ) : (
+              <span onDoubleClick={activateEditForm}> Name: {name}</span>
+            )}
+            {editMode ? (
+              <input
+                name="email"
+                value={email}
+                onChange={onChangeHandlerEmail}
+                onBlur={hideEditForm}
+              />
+            ) : (
+              <span onDoubleClick={activateEditForm}> Email: {email}</span>
+            )}
+            <br />
 
-          <div>
-            please, follow: <Link to={PATH.PACKS}> packs </Link>
-          </div>
-          <div>
-            <CustomButton title="Send" onClick={onSendButtonClick} />
-            <span>
-              change <br /> your profile
-            </span>
+            <div>
+              please, follow: <Link to={PATH.PACKS}> packs </Link>
+            </div>
+            <div>
+              <CustomButton title="Send" onClick={onSendButtonClick} />
+              <span>
+                change <br /> your profile
+              </span>
+            </div>
           </div>
         </div>
       )}

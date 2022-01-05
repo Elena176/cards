@@ -2,7 +2,7 @@ import { ThunkDispatch } from 'redux-thunk';
 
 import { setAppStatusAC, SetAppStatusActionType } from './appInitialized';
 import { setErrorMessageNetworkAC, SetErrorMessageNetworkType } from './errorReducer';
-import { logOutUserProfileType, setUserProfile, setUserProfileType } from './profile';
+import { setUserProfileAC, setUserProfileType } from './profile';
 
 import { authAPI, LoginParamsType } from 'api/loginApi';
 import { requestStatus } from 'enum';
@@ -17,20 +17,6 @@ export type InitialStateDataType = {
 export const initialState: InitialStateDataType = {
   isAuth: false,
   error: null,
-};
-
-export type UserType = {
-  _id: string;
-  email: string;
-  name: string;
-  avatar?: string;
-  publicCardPacksCount: number; // количество колод
-  created: Date;
-  updated: Date;
-  isAdmin: boolean;
-  verified: boolean; // подтвердил ли почту
-  rememberMe: boolean;
-  error?: string;
 };
 
 export const loginReducer = (
@@ -60,9 +46,6 @@ export const setAuthLoginDataAC = (isAuth: boolean) =>
 export const setErrorMessageAC = (error: Nullable<string>) =>
   ({ type: 'LOGIN/SET_ERROR_MESSAGE', error } as const);
 
-export const setUserDataAC = (user: UserType) =>
-  ({ type: 'LOGIN/SET_USER_DATA', user } as const);
-
 export const logInTC =
   (data: LoginParamsType) =>
   (dispatch: ThunkDispatch<RootStoreType, undefined, ActionTypesLogin>) => {
@@ -71,7 +54,7 @@ export const logInTC =
       .login(data)
       .then(res => {
         dispatch(setAuthLoginDataAC(true));
-        dispatch(setUserProfile(res.data));
+        dispatch(setUserProfileAC(res.data));
         dispatch(setAppStatusAC(requestStatus.succeeded));
       })
       .catch(e => {
@@ -94,7 +77,7 @@ export const logOutTC =
     dispatch(setAppStatusAC(requestStatus.loading));
     authAPI.logOut().then(() => {
       dispatch(setAuthLoginDataAC(false));
-      dispatch(setUserProfile(null));
+      dispatch(setUserProfileAC(null));
       dispatch(setErrorMessageAC(''));
       dispatch(setAppStatusAC(requestStatus.succeeded));
     });
@@ -107,6 +90,5 @@ export type ActionTypesLogin =
   | setLoginData
   | setErrorMessageLogin
   | SetAppStatusActionType
-  | logOutUserProfileType
   | setUserProfileType
   | SetErrorMessageNetworkType;

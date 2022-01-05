@@ -1,7 +1,7 @@
 import { ThunkDispatch } from 'redux-thunk';
 
 import { setAuthLoginDataAC, setLoginData } from './login';
-import { setUserProfile, setUserProfileType } from './profile';
+import { setUserProfileAC, setUserProfileType } from './profile';
 
 import { authAPI } from 'api/loginApi';
 import { requestStatus } from 'enum';
@@ -44,7 +44,7 @@ export const initializeAppTC =
       .me()
       .then(res => {
         dispatch(setAuthLoginDataAC(true));
-        dispatch(setUserProfile(res.data));
+        dispatch(setUserProfileAC(res.data));
       })
       .finally(() => {
         dispatch(setIsInitializedAC(true));
