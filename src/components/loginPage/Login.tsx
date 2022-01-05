@@ -16,7 +16,6 @@ import {
   setErrorMessagePassAC,
   logInTC,
 } from 'store';
-import { setAppStatusAC } from 'store/reducers';
 import { getIsDataLoaded, getStatus } from 'store/selectors';
 import style from 'style/Common.module.css';
 import { ReturnComponentType } from 'types';
@@ -55,7 +54,6 @@ export const Login = (): ReturnComponentType => {
       dispatch(logInTC({ email, password, rememberMe }));
       resetEmail('');
       resetPassword('');
-      dispatch(setAppStatusAC(requestStatus.succeeded));
     }
   };
   if (isDataLoaded) {
@@ -64,7 +62,7 @@ export const Login = (): ReturnComponentType => {
 
   return (
     <div className={style.mainContainer}>
-      {isLoading === 'loading' ? (
+      {isLoading === requestStatus.loading ? (
         <Preloader />
       ) : (
         <div className={style.content}>
@@ -96,7 +94,11 @@ export const Login = (): ReturnComponentType => {
               <Link to={PATH.CONFIRM_PASSWORD}> Forgot password </Link>
             </div>
             <div style={{ minWidth: '50px' }}>
-              <CustomButton title="Sign In" onClick={onClickHandleLogin} />
+              <CustomButton
+                title="Sign In"
+                onClick={onClickHandleLogin}
+                disabled={isLoading === requestStatus.loading}
+              />
             </div>
             {/* <button onClick={onClickHandlerLogin} className={style.btn}>
               Sign In

@@ -1,66 +1,108 @@
 import React from 'react';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+
+import { RegisterParamsType } from '../../api';
+
 import st from './Registrations.module.css';
 
 import { CustomButton, CustomInput } from 'components';
+import { PATH, requestStatus } from 'enum';
+import { useAppSelector, useInput } from 'hooks';
+import {
+  signUpTC,
+  getErrorNetworkMessage,
+  getErrorValidMessage,
+  getStatus,
+  RootStoreType,
+  setErrorMessagePassAC,
+} from 'store';
 import style from 'style/Common.module.css';
 import { ReturnComponentType } from 'types/ReturnComponentType';
+import { isEmailValid, isPasswordValid } from 'utils';
 
-type PropsType = {
-  email: string;
-  password: string;
-  handleEmail: () => void;
-  confirmPassword: string;
-  handlePassword: () => void;
-  handleConfirmPassword: () => void;
-  isFetching: boolean;
-  onSendButtonClick: () => void;
-  onCancelButtonClick: () => void;
-  errorValid: any;
-  errorNetwork: any;
-};
-
-export const SignUp = (props: PropsType): ReturnComponentType => {
+export const SignUp = (): ReturnComponentType => {
+  const { value: email, handleValue: handleEmail, resetValue: resetEmail } = useInput('');
   const {
+    value: password,
+    handleValue: handlePassword,
+    resetValue: resetPassword,
+  } = useInput('');
+  const {
+    value: confirmPassword,
+    handleValue: handleConfirmPassword,
+    resetValue: resetConfirmPassword,
+  } = useInput('');
+
+  const isLoading = useAppSelector(getStatus);
+  const isSignUp = useSelector<RootStoreType, boolean>(state => state.signUp.isSignUp);
+  const errorPassMessage = useAppSelector(getErrorValidMessage);
+  const errorNetworkMessage = useAppSelector(getErrorNetworkMessage);
+
+  const dispatch = useDispatch();
+
+  const data: RegisterParamsType = {
     email,
-    handleEmail,
-    errorValid,
-    errorNetwork,
     password,
-    confirmPassword,
-    handlePassword,
-    handleConfirmPassword,
-    onSendButtonClick,
-    onCancelButtonClick,
-    isFetching,
-  } = props;
+  };
+  const timeOut = 1000;
+
+  const onCancelButtonClick = (): void => {
+    resetEmail('');
+    resetPassword('');
+    resetConfirmPassword('');
+  };
+
+  const onSendButtonClick = (): void => {
+    if (
+      password !== confirmPassword ||
+      password === null ||
+      confirmPassword === null ||
+      !isPasswordValid(password) ||
+      !isEmailValid(email)
+    ) {
+      dispatch(setErrorMessagePassAC('invalid data ;-('));
+      setTimeout(() => {
+        dispatch(setErrorMessagePassAC(''));
+      }, timeOut);
+    }
+    if (isPasswordValid(password) && isEmailValid(email)) {
+      dispatch(signUpTC(data));
+      resetPassword('');
+      resetEmail('');
+      resetConfirmPassword('');
+    }
+  };
+  if (isSignUp) {
+    return <Navigate to={PATH.LOGIN} />;
+  }
   return (
     <div className={style.mainContainer}>
       <div className={style.content}>
         <div className={style.contentWrap}>
           <h2>Registration</h2>
-          <span style={{ color: 'red' }}> {errorValid} </span>
-          <span style={{ color: 'red' }}> {errorNetwork} </span>
+          <div>
+            <span style={{ color: 'red' }}> {errorPassMessage} </span>
+            <span style={{ color: 'red' }}> {errorNetworkMessage} </span>
+          </div>
           <CustomInput
             placeholder="Email"
-            typeInput="email"
+            typeInput="text"
             onChange={handleEmail}
             value={email}
-            name="user[email]"
           />
           <CustomInput
             placeholder="Password"
             typeInput="password"
             onChange={handlePassword}
             value={password}
-            name="user[password]"
           />
           <CustomInput
             placeholder="Confirm Password"
             typeInput="password"
             onChange={handleConfirmPassword}
             value={confirmPassword}
-            name="user[password]"
           />
           <p> Have fun! </p>
           <div className={st.btns}>
@@ -68,7 +110,7 @@ export const SignUp = (props: PropsType): ReturnComponentType => {
             <CustomButton
               title="Create"
               onClick={onSendButtonClick}
-              disabled={isFetching}
+              disabled={isLoading === requestStatus.loading}
             />
           </div>
         </div>

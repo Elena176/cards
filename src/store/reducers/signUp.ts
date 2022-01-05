@@ -1,13 +1,14 @@
-import { Dispatch } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 
-import { setAppStatusAC } from './appInitialized';
-import { setErrorMessageNetworkAC } from './errorReducer';
+import { RootStoreType } from '../store';
+
+import { setAppStatusAC, SetAppStatusActionType } from './appInitialized';
+import { setErrorMessageNetworkAC, SetErrorMessageNetworkType } from './errorReducer';
 
 import { authAPI, RegisterParamsType } from 'api';
 import { requestStatus } from 'enum';
 
 const initialState = {
-  isFetching: false,
   isSignUp: false,
 };
 type InitialStateType = typeof initialState;
@@ -17,8 +18,6 @@ export const signUpReducer = (
   action: SignUpActionTypes,
 ): InitialStateType => {
   switch (action.type) {
-    case 'REGISTRATION/IS_FETCHING':
-      return { ...state, isFetching: action.isFetching };
     case 'REGISTRATION/IS_SIGNUP_SUCCESSFUL': {
       return {
         ...state,
@@ -30,29 +29,19 @@ export const signUpReducer = (
   }
 };
 
-export const toggleIsFetchingAC = (isFetching: boolean) =>
-  ({
-    type: 'REGISTRATION/IS_FETCHING',
-    isFetching,
-  } as const);
 export const toggleIsSignUpAC = (isSignUpSuccessful: boolean) =>
   ({
     type: 'REGISTRATION/IS_SIGNUP_SUCCESSFUL',
     isSignUpSuccessful,
   } as const);
+/*
 export const setErrorAC = (error: null | string) =>
   ({ type: 'RECOVERY/ERROR', payload: { error } } as const);
+*/
 
 export const signUpTC =
   (params: RegisterParamsType) =>
-  (
-    dispatch: Dispatch<
-      | SignUpActionTypes
-      | ReturnType<typeof setErrorMessageNetworkAC>
-      | ReturnType<typeof setAppStatusAC>
-    >,
-  ) => {
-    dispatch(toggleIsFetchingAC(true));
+  (dispatch: ThunkDispatch<RootStoreType, undefined, SignUpActionTypes>) => {
     dispatch(setAppStatusAC(requestStatus.loading));
     authAPI
       .register(params)
@@ -72,12 +61,14 @@ export const signUpTC =
         }, timeOut);
       })
       .finally(() => {
-        dispatch(toggleIsFetchingAC(false));
+        dispatch(setAppStatusAC(requestStatus.succeeded));
       });
   };
+/*
 export type SetErrorType = ReturnType<typeof setErrorAC>;
-
-type SignUpActionTypes =
-  | ReturnType<typeof toggleIsFetchingAC>
-  | ReturnType<typeof toggleIsSignUpAC>
-  | SetErrorType;
+*/
+type setSignUpType = ReturnType<typeof toggleIsSignUpAC>;
+export type SignUpActionTypes =
+  | setSignUpType
+  | SetErrorMessageNetworkType
+  | SetAppStatusActionType;

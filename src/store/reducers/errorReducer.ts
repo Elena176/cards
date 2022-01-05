@@ -1,4 +1,4 @@
-import { Nullable } from '../../types';
+import { Nullable } from 'types';
 
 export type InitialStateDataType = {
   errorValidation?: Nullable<string>;
