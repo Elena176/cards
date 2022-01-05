@@ -1,0 +1,17 @@
+.pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.page, .activePage {
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 0.5em;
+}
+.activePage {
+    border: 2px solid gray;
+    font-weight: bold;
+}

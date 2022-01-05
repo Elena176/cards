@@ -1,0 +1,36 @@
+.contentCard{
+    max-width: 340px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    /* border: 2px solid white;*/
+    border-radius: 10px;
+    border: solid 2px #424242;
+    box-shadow: 0 0 37px 0 rgba(255, 255, 255, 0.49);
+    background-color: #3f9659;
+}
+
+.textarea {
+    background-color: #94d978;
+    border: solid 1px #424242;
+    border-radius: 4px;
+    resize: none;
+    width: 270px;
+    height: 100px;
+    padding: .5em .5em;
+    margin: 1em;
+}
+.buttons{
+display: flex;
+}
+.btn {
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+    margin: 0 1em;
+    border-radius: 10px;
+}

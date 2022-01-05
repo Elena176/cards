@@ -1,0 +1,13 @@
+.containerHeader {
+    display: flex;
+    justify-content: space-between;
+}
+.btnHeader {
+    min-width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+    margin: 0 1em;
+    border-radius: 10px;
+}

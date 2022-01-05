@@ -1,0 +1,45 @@
+.nav {
+    background-color: transparent;
+    min-height: 11.5em;
+}
+
+.wrap {
+    padding: 2em 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.listItem {
+    border: solid 2px #424242;
+    box-shadow: 0 0 37px 0 rgba(255, 255, 255, 0.49);
+    background-color: #dccf84;
+    border-radius: 10px;
+    padding: 1em;
+}
+
+.navElement {
+    font-family: 'Mochiy Pop P One', sans-serif;
+    color: #4d594d;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.p {
+    font-family: 'Mochiy Pop P One', sans-serif;
+    font-size: 20px;
+    color: yellowgreen;
+}
+
+.navList {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+
+li {
+    color: black;
+
+}

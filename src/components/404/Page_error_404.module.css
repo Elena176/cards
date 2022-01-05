@@ -1,0 +1,25 @@
+.mainContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    flex-direction: column;
+    position: relative;
+}
+
+/*.link {
+    position: absolute;
+    background-color: white;
+
+}*/
+.linkContainer {
+    position: absolute;
+    background-color: white;
+    height: 50px;
+    width: 200px;
+    text-align: center;
+    margin-top: 490px;
+
+}

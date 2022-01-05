@@ -1,0 +1,31 @@
+.tableSidebar {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    background-color: white;
+    text-align: center;
+    justify-content: center;
+}
+
+.buttonsContainer {
+    display: flex;
+    gap: 1em;
+    /*min-width: 100px;*/
+    justify-content: space-evenly;
+    padding: 1em;
+}
+
+.header3 {
+    font-size: 1.1em;
+}
+
+.pickBlock {
+    padding: 1em;
+}
+
+@media (max-width: 1250px){
+    .tableSidebar{
+        flex-direction: row;
+        width: 100%;
+    }
+}

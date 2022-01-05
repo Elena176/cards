@@ -1,0 +1,6 @@
+.rememberMeInput {
+    display: flex;
+    justify-content: flex-end;
+    width: 200px;
+    font-size: .875em;
+}
