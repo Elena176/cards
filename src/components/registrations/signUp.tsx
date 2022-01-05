@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 import { RegisterParamsType } from '../../api';
@@ -15,9 +15,9 @@ import {
   getErrorNetworkMessage,
   getErrorValidMessage,
   getStatus,
-  RootStoreType,
   setErrorMessagePassAC,
 } from 'store';
+import { getIsSignUp } from 'store/selectors';
 import style from 'style/Common.module.css';
 import { ReturnComponentType } from 'types/ReturnComponentType';
 import { isEmailValid, isPasswordValid } from 'utils';
@@ -36,7 +36,7 @@ export const SignUp = (): ReturnComponentType => {
   } = useInput('');
 
   const isLoading = useAppSelector(getStatus);
-  const isSignUp = useSelector<RootStoreType, boolean>(state => state.signUp.isSignUp);
+  const isSignUp = useAppSelector(getIsSignUp);
   const errorPassMessage = useAppSelector(getErrorValidMessage);
   const errorNetworkMessage = useAppSelector(getErrorNetworkMessage);
 
