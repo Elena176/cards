@@ -1,0 +1,1 @@
+export { REGISTRATION } from './actionsSignUp';

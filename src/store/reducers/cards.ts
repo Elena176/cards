@@ -28,10 +28,10 @@ const initialState: initStateType = {
   cardsTotalCount: 0,
   grade: 5,
   shots: 1,
-  maxGrade: 5,
-  minGrade: 3,
+  maxGrade: 6,
+  minGrade: 0,
   page: 1,
-  pageCount: 10,
+  pageCount: 4,
   packUserId: '',
 };
 export const cardReducer = (
@@ -58,6 +58,11 @@ export const cardReducer = (
             : c,
         ),
       };
+    case 'CARDS/SET_CURRENT_PAGE':
+      return {
+        ...state,
+        page: action.pageNumber,
+      };
     default:
       return state;
   }
@@ -77,6 +82,11 @@ export const updateCardAC = (_id: string, question: string, answer: string) =>
     _id,
     question,
     answer,
+  } as const);
+export const setCurrentPageCardsAC = (pageNumber: number) =>
+  ({
+    type: 'CARDS/SET_CURRENT_PAGE',
+    pageNumber,
   } as const);
 
 export const getCardsTC =
@@ -168,6 +178,7 @@ export type getCardsType = ReturnType<typeof setCardsAC>;
 export type removeCardType = ReturnType<typeof removeCardAC>;
 export type addCardType = ReturnType<typeof addCardAC>;
 export type updateCardType = ReturnType<typeof updateCardAC>;
+export type setCurrentPageCard = ReturnType<typeof setCurrentPageCardsAC>;
 
 export type ActionTypesCards =
   | getCardsType
@@ -175,4 +186,5 @@ export type ActionTypesCards =
   | removeCardType
   | SetErrorMessageNetworkType
   | addCardType
-  | updateCardType;
+  | updateCardType
+  | setCurrentPageCard;

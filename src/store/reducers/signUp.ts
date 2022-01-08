@@ -6,7 +6,7 @@ import { setAppStatusAC, SetAppStatusActionType } from './appInitialized';
 import { setErrorMessageNetworkAC, SetErrorMessageNetworkType } from './errorReducer';
 
 import { authAPI, RegisterParamsType } from 'api';
-import { requestStatus } from 'enum';
+import { REGISTRATION, requestStatus } from 'enum';
 
 const initialState = {
   isSignUp: false,
@@ -18,7 +18,7 @@ export const signUpReducer = (
   action: SignUpActionTypes,
 ): InitialStateType => {
   switch (action.type) {
-    case 'REGISTRATION/IS_SIGNUP_SUCCESSFUL': {
+    case REGISTRATION.IsSuccessful: {
       return {
         ...state,
         isSignUp: action.isSignUpSuccessful,
@@ -31,7 +31,7 @@ export const signUpReducer = (
 
 export const toggleIsSignUpAC = (isSignUpSuccessful: boolean) =>
   ({
-    type: 'REGISTRATION/IS_SIGNUP_SUCCESSFUL',
+    type: REGISTRATION.IsSuccessful,
     isSignUpSuccessful,
   } as const);
 /*

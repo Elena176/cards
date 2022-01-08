@@ -1,0 +1,3 @@
+export enum REGISTRATION {
+  IsSuccessful = 'REGISTRATION/IS_SIGNUP_SUCCESSFUL',
+}

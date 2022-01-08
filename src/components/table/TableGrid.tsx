@@ -40,6 +40,7 @@ export const TableGrid = (): ReturnComponentType => {
       <td>{cardPack.cardsCount}</td>
       <td>{cardPack.updated}</td>
       <td>{cardPack.user_name}</td>
+      {/* <td>{cardPack.}</td> */}
       <td>
         <div className={style.btns}>
           <CustomButton title="update" onClick={onUpdateClick} />
