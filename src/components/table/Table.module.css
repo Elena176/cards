@@ -3,11 +3,13 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    padding: 0.5em 0.5em;
+    padding: 0.8em 0.5em;
+
 }
 .tableElSmall{
     width: 150px;
     padding: 0.5em 0;
+
 }
 .table {
     display: flex;

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
 .mainContainer {
     display: flex;
@@ -29,14 +29,14 @@ input[type=checkbox]{
 
 .btn {
     padding: 5px 10px;
-    font-family: 'Mochiy Pop P One', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
 
 }
 
-.inputEmail, .inputPassword {
+.inputEmail, .inputPassword, .inputName {
     min-width: 15.5em;
     padding: .5em;
-    font-family: 'Mochiy Pop P One', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 
