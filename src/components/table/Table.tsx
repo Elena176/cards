@@ -5,28 +5,23 @@ import { useDispatch } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 
 import { PATH } from '../../enum';
-import style from '../../style/Common.module.css';
 import { Pagination } from '../pagination';
 
-import {
-  addDeckTC,
-  deckTemplate,
-  removeDeckTC,
-  setCurrentPageAC,
-  setDecksTC,
-} from './decksTC';
-import { EditableSpan } from './EditableSpan';
+import { addDeckTC, deckTemplate, setCurrentPageAC, setDecksTC } from './decksTC';
 import styleTable from './Table.module.css';
 
-import { TableSidebar } from 'components';
+import { CustomButton, CustomInput, TableSidebar } from 'components';
 import { useAppSelector } from 'hooks';
-import { getErrorNetworkMessage, getIsDataLoaded, setErrorMessageNetworkAC } from 'store';
+import { getErrorNetworkMessage, getIsDataLoaded } from 'store';
 import { getStatus } from 'store/selectors';
 import { ReturnComponentType } from 'types';
 
 export const Table = (): ReturnComponentType => {
+  const [searchName, setSearchName] = useState('');
   const isAuth = useAppSelector(getIsDataLoaded);
-  const [title, setTitle] = useState('');
+  /* const userData = useSelector<RootStoreType, InitialStateProfileType>(
+    state => state.profilePage,
+  ); */
 
   const dispatch = useDispatch();
 
@@ -41,123 +36,84 @@ export const Table = (): ReturnComponentType => {
     dispatch(setDecksTC());
   }, [dispatch, currentPage]);
 
-  const random = 100000;
-
-  const onRemoveDeckClick = (id: string): void => {
+  const addButtonClick = (): void => {
+    dispatch(addDeckTC({}));
+  };
+  const onChangeSearchName = (e: ChangeEvent<HTMLInputElement>): void => {
+    setSearchName(e.currentTarget.value);
+  };
+  /* const onRemoveDeckClick = (id: string): void => {
     dispatch(removeDeckTC(id));
     dispatch(setErrorMessageNetworkAC(''));
-  };
+  }; */
 
-  const onTitleEnterChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
-    setTitle(e.currentTarget.value);
-  };
-  const addButtonClick = (): void => {
-    dispatch(addDeckTC({ name: title }));
-    setTitle('');
-  };
+  const resultPacks = cardPacks.map((pack: deckTemplate) => (
+    <div className={styleTable.table} key={pack._id + pack.name}>
+      <div className={styleTable.tableEl}>{pack.name}</div>
+      <div className={styleTable.tableElSmall}>{pack.cardsCount}</div>
+      <div className={styleTable.tableEl}>{pack.user_name}</div>
+      <div className={styleTable.tableEl}>{pack.updated}</div>
+      <div>
+        {' '}
+        <Link className={styleTable.tableEl} to={`${PATH.CARDS}/${pack._id}`}>
+          Learn
+        </Link>
+        {/* {userData._id && (
+          <div style={{ display: 'flex' }}>
+            <CustomButton title="Del" onClick={() => onRemoveDeckClick(pack._id)} />
+            <CustomButton title="Update" onClick={() => {}} />
+          </div>
+        )} */}
+      </div>
+    </div>
+  ));
 
   if (!isAuth) {
     return <Navigate to={PATH.PROFILE} />;
   }
 
   return (
-    <div className={styleTable.wrap}>
-      <div className={styleTable.wrapper}>
-        {isLoading === 'loading' ? (
-          <CircularProgress />
-        ) : (
-          <div style={{ display: 'flex' }}>
-            <TableSidebar />
-            <div className={styleTable.rightBlock}>
-              <div className={styleTable.decks}>
-                <h3 style={{ fontSize: '1.1em' }}> Packs list </h3>
-                <div className={styleTable.searchInputSection}>
-                  <input
-                    className={styleTable.inputSearch}
-                    id="decks"
-                    placeholder="Search"
-                    type="search"
-                  />
-                  <textarea
-                    className={styleTable.textArea}
-                    placeholder="name pack"
-                    value={title}
-                    onChange={onTitleEnterChange}
-                  />
-                  <button className={style.btn} onClick={addButtonClick}>
-                    Add new pack
-                  </button>
-                </div>
-
-                <div className={styleTable.tableCommon}>
-                  <div className={styleTable.element}>
-                    <div
-                      className={styleTable.elementPartOne}
-                      style={{ fontSize: '16px' }}
-                    >
-                      Name
-                    </div>
-                    <div
-                      className={styleTable.elementPartTwo}
-                      style={{ fontSize: '16px' }}
-                    >
-                      CardsCount
-                    </div>
-                    <div
-                      className={styleTable.elementPartThree}
-                      style={{ fontSize: '16px' }}
-                    >
-                      Updated
-                    </div>
-                    <div
-                      className={styleTable.elementPartFour}
-                      style={{ fontSize: '16px' }}
-                    >
-                      Created by
-                    </div>
-                  </div>
-
-                  <div className={styleTable.tableRow}>
-                    {errorNetworkMessage && (
-                      <span style={{ color: 'red' }}> {errorNetworkMessage} </span>
-                    )}
-                    {cardPacks.map((cardPack: deckTemplate) => (
-                      <div className={styleTable.element} key={Math.random() * random}>
-                        <div className={styleTable.elementPartOne}>
-                          <EditableSpan value={cardPack.name} id={cardPack._id} />
-                        </div>
-                        <div className={styleTable.elementPartTwo}>
-                          {cardPack.cardsCount}
-                        </div>
-                        <div className={styleTable.elementPartThree}>
-                          {cardPack.updated}
-                        </div>
-                        <div className={styleTable.elementPartFour}>
-                          {cardPack.user_name}
-                        </div>
-                        <button className={styleTable.btn}>update</button>
-                        <button
-                          className={styleTable.btn}
-                          onClick={() => onRemoveDeckClick(cardPack._id)}
-                        >
-                          delete
-                        </button>
-                        <Link to={`${PATH.CARDS}/${cardPack._id}`}>cards</Link>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <Pagination
-                currentPage={currentPage}
-                totalCount={totalCount}
-                pageSize={perPage}
-                onPageChange={(page: number) => dispatch(setCurrentPageAC(page))}
+    <div>
+      {isLoading === 'loading' ? (
+        <CircularProgress />
+      ) : (
+        <div className={styleTable.content}>
+          <TableSidebar />
+          <div className={styleTable.tableWrapper}>
+            <h3 className={styleTable.header}> Packs list </h3>
+            <div className={styleTable.inputBlock}>
+              <CustomInput
+                onChange={onChangeSearchName}
+                value={searchName}
+                placeholder="Search"
+                typeInput="search"
+                /* onKeyPress={onEnterPress} */
               />
+              <div>
+                <CustomButton title="Add new pack" onClick={addButtonClick} />
+              </div>
             </div>
+
+            <div className={styleTable.table}>
+              <div className={styleTable.tableEl}>Name</div>
+              <div className={styleTable.tableElSmall}>CardsCount</div>
+              <div className={styleTable.tableEl}>Created by</div>
+              <div className={styleTable.tableEl}>Updated</div>
+              <div className={styleTable.tableEl}>Actions</div>
+            </div>
+            {errorNetworkMessage && (
+              <span style={{ color: 'red' }}> {errorNetworkMessage} </span>
+            )}
+            {resultPacks}
+            <Pagination
+              currentPage={currentPage}
+              totalCount={totalCount}
+              pageSize={perPage}
+              onPageChange={(page: number) => dispatch(setCurrentPageAC(page))}
+            />
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
