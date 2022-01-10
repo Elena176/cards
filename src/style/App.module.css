@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&family=Roboto:ital,wght@1,100&family=Spline+Sans&display=swap');
+
 
 .app {
     box-sizing: content-box;
@@ -41,13 +42,14 @@
 
 h2, span {
     color: #233319;
-    font-family: 'Mochiy Pop P One', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
 }
 
 h3 {
     color: #23341e;
     font-size: 28px;
-    font-family: 'Mochiy Pop P One', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 p {

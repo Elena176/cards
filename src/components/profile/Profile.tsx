@@ -72,6 +72,7 @@ export const Profile = (): ReturnComponentType => {
           <input type="file" className={style.avatar} />
           {editMode ? (
             <input
+              className={style.inputName}
               name="name"
               value={name}
               onChange={onChangeHandlerName}
@@ -84,7 +85,7 @@ export const Profile = (): ReturnComponentType => {
               </span>
             </div>
           )}
-          <span> Email: {email} </span>
+          <p> Email: {email} </p>
           <Link style={{ textDecoration: 'none', cursor: 'pointer' }} to={PATH.PACKS}>
             add packs
           </Link>
