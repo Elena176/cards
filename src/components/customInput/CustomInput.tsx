@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { ChangeEvent, memo } from 'react';
 
 import s from './CustomInputText.module.css';
 
@@ -8,7 +8,7 @@ type InputProps = {
   placeholder: string;
   typeInput: string;
   className?: string;
-  onChange: () => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   value: string;
   name?: string;
 };
