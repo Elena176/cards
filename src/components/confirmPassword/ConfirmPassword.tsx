@@ -83,9 +83,6 @@ password recovery link: <a href='http://localhost:3000/#/createNewPassword/$toke
             <p> Enter your email and we will send you further instructions</p>
             <div>
               <CustomButton title="Send instructions" onClick={onSendButtonClick} />
-              {/* <button className={style.btn} onClick={onSendButtonClick}>
-                send instructions
-              </button> */}
             </div>
             <span>Did you remember your password?</span>
             <Link to="/login"> Try logging in </Link>

@@ -10,3 +10,4 @@ export { CustomButton } from './customButton';
 export { PageError404 } from './404';
 export { CreateNewPassword, ConfirmPassword, Popup } from './confirmPassword';
 export { Cards } from './cards';
+export { Header } from './Header';

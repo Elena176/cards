@@ -4,8 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 import { RegisterParamsType } from '../../api';
-
-import st from './Registrations.module.css';
+import styleRegister from '../../style/Registrations.module.css';
 
 import { CustomButton, CustomInput } from 'components';
 import { PATH, requestStatus } from 'enum';
@@ -105,7 +104,7 @@ export const SignUp = (): ReturnComponentType => {
             value={confirmPassword}
           />
           <p> Have fun! </p>
-          <div className={st.btns}>
+          <div className={styleRegister.btns}>
             <CustomButton title="Cancel" onClick={onCancelButtonClick} />
             <CustomButton
               title="Create"
