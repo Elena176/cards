@@ -3,9 +3,8 @@ import React, { ChangeEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 
+import styleLogin from '../../style/Login.module.css';
 import { CustomInput } from '../customInput';
-
-import st from './Login.module.css';
 
 import { CustomButton, Preloader } from 'components';
 import { PATH, requestStatus } from 'enum';
@@ -33,7 +32,6 @@ export const Login = (): ReturnComponentType => {
   const dispatch = useDispatch();
 
   const isDataLoaded = useAppSelector(getIsDataLoaded);
-  /* const errorMessage = useAppSelector(getErrorMessage); */
   const isLoading = useAppSelector(getStatus);
   const errorPassMessage = useAppSelector(getErrorValidMessage);
   const errorNetworkMessage = useAppSelector(getErrorNetworkMessage);
@@ -86,7 +84,7 @@ export const Login = (): ReturnComponentType => {
               value={password}
               onChange={handlePassword}
             />
-            <div className={st.rememberMeInput}>
+            <div className={styleLogin.rememberMeInput}>
               remember me
               <input type="checkbox" checked={rememberMe} onChange={onChangeCheckBox} />
             </div>
@@ -100,9 +98,6 @@ export const Login = (): ReturnComponentType => {
                 disabled={isLoading === requestStatus.loading}
               />
             </div>
-            {/* <button onClick={onClickHandlerLogin} className={style.btn}>
-              Sign In
-            </button> */}
             <p> Do not have an account? </p>
             <Link to={PATH.REGISTRATION}> Sign Up </Link>
           </div>

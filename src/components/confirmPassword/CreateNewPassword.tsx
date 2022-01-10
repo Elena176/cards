@@ -89,9 +89,6 @@ export const CreateNewPassword = (): ReturnComponentType => {
             <p> Create new password and we will send you further instructions to email</p>
             <div>
               <CustomButton title="Create new password" onClick={onCreateButtonClick} />
-              {/* <button className={style.btn} onClick={onCreateButtonClick}>
-                Create new password
-              </button> */}
             </div>
           </div>
         </div>

@@ -34,14 +34,6 @@ export const Profile = (): ReturnComponentType => {
     name,
   };
 
-  /*
-    const onSendButtonClick = (): void => {
-      profileAPI.updateProfile(data).then(res => {
-        dispatch(setUserDataAC(res.data.updatedUser));
-      });
-    };
-  */
-
   const onChangeHandlerName = (event: ChangeEvent<HTMLInputElement>): void => {
     setName(event.currentTarget.value);
   };
@@ -49,7 +41,6 @@ export const Profile = (): ReturnComponentType => {
   const activateEditForm = (): void => setEditMode(true);
 
   const hideEditForm = (): void => {
-    console.log('tratata');
     profileAPI.updateProfile(data).then(res => {
       dispatch(setUserDataAC(res.data.updatedUser));
     });
@@ -92,7 +83,6 @@ export const Profile = (): ReturnComponentType => {
                 <span style={{ cursor: 'pointer' }} onDoubleClick={activateEditForm}>
                   Name: {name}
                 </span>
-                {/*  <CustomButton title="Edit" onClick={onSendButtonClick} /> */}
               </div>
             )}
             <span> Email: {email} </span>
