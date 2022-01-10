@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 
+import { CircularProgress } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 
@@ -7,7 +8,6 @@ import noneAvatarImage from '../../assets/avatar.png';
 import { InitialStateProfileType, setUserDataAC } from '../../store/reducers/profile';
 
 import { profileAPI } from 'api/loginApi';
-import { Preloader } from 'components/preloader/Preloader';
 import { PATH } from 'enum/pathes';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { getIsDataLoaded, RootStoreType } from 'store';
@@ -60,36 +60,34 @@ export const Profile = (): ReturnComponentType => {
   return (
     <div className={style.mainContainer}>
       {isLoading === 'loading' ? (
-        <Preloader />
+        <CircularProgress />
       ) : (
         <div className={style.content}>
-          <div className={style.contentWrap}>
-            <h2> Profile </h2>
-            <img
-              alt="avatar_image"
-              className={style.avatar}
-              src={avatar !== null ? avatar : noneAvatarImage}
+          <h2> Profile </h2>
+          <img
+            alt="avatar_image"
+            className={style.avatar}
+            src={avatar !== null ? avatar : noneAvatarImage}
+          />
+          <input type="file" className={style.avatar} />
+          {editMode ? (
+            <input
+              name="name"
+              value={name}
+              onChange={onChangeHandlerName}
+              onBlur={hideEditForm}
             />
-            <input type="file" className={style.avatar} />
-            {editMode ? (
-              <input
-                name="name"
-                value={name}
-                onChange={onChangeHandlerName}
-                onBlur={hideEditForm}
-              />
-            ) : (
-              <div style={{ display: 'flex' }}>
-                <span style={{ cursor: 'pointer' }} onDoubleClick={activateEditForm}>
-                  Name: {name}
-                </span>
-              </div>
-            )}
-            <span> Email: {email} </span>
-            <span>
-              please, follow: <Link to={PATH.PACKS}> packs </Link>
-            </span>
-          </div>
+          ) : (
+            <div style={{ display: 'flex' }}>
+              <span style={{ cursor: 'pointer' }} onDoubleClick={activateEditForm}>
+                Name: {name}
+              </span>
+            </div>
+          )}
+          <span> Email: {email} </span>
+          <Link style={{ textDecoration: 'none', cursor: 'pointer' }} to={PATH.PACKS}>
+            add packs
+          </Link>
         </div>
       )}
     </div>
