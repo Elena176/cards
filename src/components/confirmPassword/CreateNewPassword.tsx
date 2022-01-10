@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 
+import { CircularProgress } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { Navigate, useParams } from 'react-router-dom';
 
 import style from '../../style/Common.module.css';
 import { CustomButton } from '../customButton';
 import { CustomInput } from '../customInput';
-import { Preloader } from '../preloader';
 
 import { SetNewPassType } from 'api';
 import { PATH, requestStatus } from 'enum';
 import { useAppSelector, useInput } from 'hooks';
 import {
-  setAppStatusAC,
-  setErrorMessagePassAC,
+  forgotPassSetPassTC,
   getErrorNetworkMessage,
   getErrorValidMessage,
   getStatus,
-  forgotPassSetPassTC,
+  setAppStatusAC,
+  setErrorMessagePassAC,
 } from 'store';
 import { ReturnComponentType } from 'types';
 import { isPasswordValid } from 'utils';
@@ -67,29 +67,25 @@ export const CreateNewPassword = (): ReturnComponentType => {
   return (
     <div className={style.mainContainer}>
       {isLoading === requestStatus.loading ? (
-        <Preloader />
+        <CircularProgress />
       ) : (
         <div className={style.content}>
-          <div className={style.contentWrap}>
-            <h2>Create new password</h2>
-            {errorPassMessage && (
-              <span style={{ color: 'red' }}> {errorPassMessage} </span>
-            )}
-            {errorNetworkMessage && (
-              <span style={{ color: 'red' }}> {errorNetworkMessage} </span>
-            )}
-            <div className={style.inputCentering}>
-              <CustomInput
-                placeholder="Password"
-                typeInput="password"
-                onChange={handleNewPassword}
-                value={newPassword}
-              />
-            </div>
-            <p> Create new password and we will send you further instructions to email</p>
-            <div>
-              <CustomButton title="Create new password" onClick={onCreateButtonClick} />
-            </div>
+          <h2>Create new password</h2>
+          {errorPassMessage && <span style={{ color: 'red' }}> {errorPassMessage} </span>}
+          {errorNetworkMessage && (
+            <span style={{ color: 'red' }}> {errorNetworkMessage} </span>
+          )}
+          <div className={style.inputCentering}>
+            <CustomInput
+              placeholder="Password"
+              typeInput="password"
+              onChange={handleNewPassword}
+              value={newPassword}
+            />
+          </div>
+          <p> Create new password and we will send you further instructions to email</p>
+          <div>
+            <CustomButton title="Create new password" onClick={onCreateButtonClick} />
           </div>
         </div>
       )}

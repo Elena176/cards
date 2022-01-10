@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 
+import { CircularProgress } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 
+import { PATH } from '../../enum';
 import style from '../../style/Common.module.css';
 import { CustomButton } from '../customButton';
 import { CustomInput } from '../customInput';
-import { Preloader } from '../preloader';
 
 import { AddNewPassType } from 'api';
 import { useAppSelector, useInput } from 'hooks';
 import {
-  setErrorMessagePassAC,
+  forgotPassAddEmailTC,
   getErrorNetworkMessage,
   getErrorValidMessage,
   getStatus,
-  forgotPassAddEmailTC,
+  setErrorMessagePassAC,
 } from 'store';
 import { ReturnComponentType } from 'types';
 import { isEmailValid } from 'utils';
@@ -61,32 +62,28 @@ password recovery link: <a href='http://localhost:3000/#/createNewPassword/$toke
   return (
     <div className={style.mainContainer}>
       {isLoading === 'loading' ? (
-        <Preloader />
+        <CircularProgress />
       ) : (
         <div className={style.content}>
-          <div className={style.contentWrap}>
-            <h2>Forgot your password?</h2>
-            {errorPassMessage && (
-              <span style={{ color: 'red' }}> {errorPassMessage} </span>
-            )}
-            {errorNetworkMessage && (
-              <span style={{ color: 'red' }}> {errorNetworkMessage} </span>
-            )}
-            <div className={style.inputCentering}>
-              <CustomInput
-                placeholder="Email"
-                typeInput="email"
-                onChange={handleEmail}
-                value={email}
-              />
-            </div>
-            <p> Enter your email and we will send you further instructions</p>
-            <div>
-              <CustomButton title="Send instructions" onClick={onSendButtonClick} />
-            </div>
-            <span>Did you remember your password?</span>
-            <Link to="/login"> Try logging in </Link>
+          <h2>Forgot your password?</h2>
+          {errorPassMessage && <span style={{ color: 'red' }}> {errorPassMessage} </span>}
+          {errorNetworkMessage && (
+            <span style={{ color: 'red' }}> {errorNetworkMessage} </span>
+          )}
+          <div className={style.inputCentering}>
+            <CustomInput
+              placeholder="Email"
+              typeInput="email"
+              onChange={handleEmail}
+              value={email}
+            />
           </div>
+          <p> Enter your email and we will send you further instructions</p>
+          <div>
+            <CustomButton title="Send instructions" onClick={onSendButtonClick} />
+          </div>
+          <span>Did you remember your password?</span>
+          <Link to={PATH.LOGIN}> Try logging in </Link>
         </div>
       )}
     </div>

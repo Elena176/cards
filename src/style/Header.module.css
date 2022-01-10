@@ -1,6 +1,8 @@
 .containerHeader {
     display: flex;
     justify-content: space-between;
+    padding: 1em 0;
+    border-bottom: 2px solid black;
 }
 .btnHeader {
     min-width: 40px;
@@ -10,4 +12,8 @@
     padding: 1em;
     margin: 0 1em;
     border-radius: 10px;
+}
+.link {
+    text-decoration: none;
+    color: black;
 }

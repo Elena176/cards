@@ -1,6 +1,6 @@
 import React from 'react';
 
-import s from './CustomButton.module.css';
+import styleCustomButton from '../../style/CustomButton.module.css';
 
 type ButtonPropsType = {
   title: string;
@@ -14,7 +14,11 @@ export const CustomButton = React.memo((props: ButtonPropsType) => {
     onClick();
   };
   return (
-    <button className={s.button} onClick={onButtonClick} disabled={disabled}>
+    <button
+      className={styleCustomButton.button}
+      onClick={onButtonClick}
+      disabled={disabled}
+    >
       {title}
     </button>
   );

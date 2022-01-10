@@ -12,7 +12,9 @@ import styleHeader from 'style/Header.module.css';
 
 export const Header = (): ReturnComponentType => {
   const isAuth = useAppSelector(getIsDataLoaded);
+
   const dispatch = useDispatch();
+
   const onClickLogOut = (): void => {
     dispatch(logOutTC());
   };
@@ -21,12 +23,12 @@ export const Header = (): ReturnComponentType => {
     <div className={styleHeader.containerHeader}>
       <div style={{ display: 'flex' }}>
         <button className={styleHeader.btnHeader}>
-          <NavLink style={{ textDecoration: 'none', color: 'black' }} to={PATH.PACKS}>
+          <NavLink className={styleHeader.link} to={PATH.PACKS}>
             Packs
           </NavLink>
         </button>
         <button className={styleHeader.btnHeader}>
-          <NavLink style={{ textDecoration: 'none', color: 'black' }} to={PATH.PROFILE}>
+          <NavLink className={styleHeader.link} to={PATH.PROFILE}>
             Profile
           </NavLink>
         </button>

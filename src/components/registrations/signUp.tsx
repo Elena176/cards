@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useDispatch } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 import { RegisterParamsType } from '../../api';
 import styleRegister from '../../style/Registrations.module.css';
@@ -79,39 +79,40 @@ export const SignUp = (): ReturnComponentType => {
   return (
     <div className={style.mainContainer}>
       <div className={style.content}>
-        <div className={style.contentWrap}>
-          <h2>Registration</h2>
-          <div>
-            <span style={{ color: 'red' }}> {errorPassMessage} </span>
-            <span style={{ color: 'red' }}> {errorNetworkMessage} </span>
-          </div>
-          <CustomInput
-            placeholder="Email"
-            typeInput="text"
-            onChange={handleEmail}
-            value={email}
+        <h2>Registration</h2>
+        <div>
+          <span style={{ color: 'red' }}> {errorPassMessage} </span>
+          <span style={{ color: 'red' }}> {errorNetworkMessage} </span>
+        </div>
+        <CustomInput
+          placeholder="Email"
+          typeInput="text"
+          onChange={handleEmail}
+          value={email}
+        />
+        <CustomInput
+          placeholder="Password"
+          typeInput="password"
+          onChange={handlePassword}
+          value={password}
+        />
+        <CustomInput
+          placeholder="Confirm Password"
+          typeInput="password"
+          onChange={handleConfirmPassword}
+          value={confirmPassword}
+        />
+        <p>
+          {' '}
+          Have fun! <Link to={PATH.LOGIN}> Try loggin in </Link>{' '}
+        </p>
+        <div className={styleRegister.btns}>
+          <CustomButton title="Cancel" onClick={onCancelButtonClick} />
+          <CustomButton
+            title="Create"
+            onClick={onSendButtonClick}
+            disabled={isLoading === requestStatus.loading}
           />
-          <CustomInput
-            placeholder="Password"
-            typeInput="password"
-            onChange={handlePassword}
-            value={password}
-          />
-          <CustomInput
-            placeholder="Confirm Password"
-            typeInput="password"
-            onChange={handleConfirmPassword}
-            value={confirmPassword}
-          />
-          <p> Have fun! </p>
-          <div className={styleRegister.btns}>
-            <CustomButton title="Cancel" onClick={onCancelButtonClick} />
-            <CustomButton
-              title="Create"
-              onClick={onSendButtonClick}
-              disabled={isLoading === requestStatus.loading}
-            />
-          </div>
         </div>
       </div>
     </div>

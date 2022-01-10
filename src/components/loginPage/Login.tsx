@@ -1,12 +1,13 @@
 import React, { ChangeEvent, useState } from 'react';
 
+import { CircularProgress } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 
 import styleLogin from '../../style/Login.module.css';
 import { CustomInput } from '../customInput';
 
-import { CustomButton, Preloader } from 'components';
+import { CustomButton } from 'components';
 import { PATH, requestStatus } from 'enum';
 import { useAppSelector, useInput } from 'hooks';
 import {
@@ -61,46 +62,42 @@ export const Login = (): ReturnComponentType => {
   return (
     <div className={style.mainContainer}>
       {isLoading === requestStatus.loading ? (
-        <Preloader />
+        <CircularProgress />
       ) : (
         <div className={style.content}>
-          <div className={style.contentWrap}>
-            <h2> Login </h2>
-            {errorPassMessage && (
-              <span style={{ color: 'red' }}> {errorPassMessage} </span>
-            )}
-            {errorNetworkMessage && (
-              <span style={{ color: 'red' }}> {errorNetworkMessage} </span>
-            )}
-            <CustomInput
-              onChange={handleEmail}
-              value={email}
-              placeholder="Email"
-              typeInput="text"
-            />
-            <CustomInput
-              placeholder="password"
-              typeInput="password"
-              value={password}
-              onChange={handlePassword}
-            />
-            <div className={styleLogin.rememberMeInput}>
-              remember me
-              <input type="checkbox" checked={rememberMe} onChange={onChangeCheckBox} />
-            </div>
-            <div>
-              <Link to={PATH.CONFIRM_PASSWORD}> Forgot password </Link>
-            </div>
-            <div style={{ minWidth: '50px' }}>
-              <CustomButton
-                title="Sign In"
-                onClick={onClickHandleLogin}
-                disabled={isLoading === requestStatus.loading}
-              />
-            </div>
-            <p> Do not have an account? </p>
-            <Link to={PATH.REGISTRATION}> Sign Up </Link>
+          <h2> Login </h2>
+          {errorPassMessage && <span style={{ color: 'red' }}> {errorPassMessage} </span>}
+          {errorNetworkMessage && (
+            <span style={{ color: 'red' }}> {errorNetworkMessage} </span>
+          )}
+          <CustomInput
+            onChange={handleEmail}
+            value={email}
+            placeholder="Email"
+            typeInput="text"
+          />
+          <CustomInput
+            placeholder="password"
+            typeInput="password"
+            value={password}
+            onChange={handlePassword}
+          />
+          <div className={styleLogin.rememberMeInput}>
+            remember me
+            <input type="checkbox" checked={rememberMe} onChange={onChangeCheckBox} />
           </div>
+          <div>
+            <Link to={PATH.CONFIRM_PASSWORD}> Forgot password </Link>
+          </div>
+          <div style={{ minWidth: '50px' }}>
+            <CustomButton
+              title="Sign In"
+              onClick={onClickHandleLogin}
+              disabled={isLoading === requestStatus.loading}
+            />
+          </div>
+          <p> Do not have an account? </p>
+          <Link to={PATH.REGISTRATION}> Sign Up </Link>
         </div>
       )}
     </div>
