@@ -6,18 +6,16 @@ import { instance } from './apiConfig';
 
 export const authAPI = {
   login(params: LoginParamsType) {
-    return instance.post<
-      LoginParamsType,
-      /* 'сам объект сервера который отправляет игнат' */
-      /* AxiosResponse нужен только у методов put и post */
-      AxiosResponse<ResponseType>
-    >('auth/login', params);
+    return instance.post<LoginParamsType, AxiosResponse<ResponseType>>(
+      'auth/login',
+      params,
+    );
   },
   logOut() {
     return instance.delete<ResponseType>('auth/me', {});
   },
   me() {
-    return instance.post<ResponseType>('auth/me');
+    return instance.post<ResponseType>('auth/me', {});
   },
   register(params: RegisterParamsType) {
     return instance.post<RegisterParamsType, any>('auth/register', params);
