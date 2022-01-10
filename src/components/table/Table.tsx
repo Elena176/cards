@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 import { PATH } from '../../enum';
 import style from '../../style/Common.module.css';
@@ -19,11 +19,12 @@ import styleTable from './Table.module.css';
 
 import { Preloader, TableSidebar } from 'components';
 import { useAppSelector } from 'hooks';
-import { getErrorNetworkMessage, setErrorMessageNetworkAC } from 'store';
+import { getErrorNetworkMessage, getIsDataLoaded, setErrorMessageNetworkAC } from 'store';
 import { getStatus } from 'store/selectors';
 import { ReturnComponentType } from 'types';
 
 export const Table = (): ReturnComponentType => {
+  const isAuth = useAppSelector(getIsDataLoaded);
   const [title, setTitle] = useState('');
 
   const dispatch = useDispatch();
@@ -34,7 +35,6 @@ export const Table = (): ReturnComponentType => {
   const totalCount = useAppSelector(state => state.decks.cardPacksTotalCount);
   const currentPage = useAppSelector(state => state.decks.page);
   const perPage = useAppSelector(state => state.decks.pageCount);
-  // const pagesCount = Math.ceil(totalCount / perPage);
 
   useEffect(() => {
     dispatch(setDecksTC());
@@ -59,6 +59,10 @@ export const Table = (): ReturnComponentType => {
     dispatch(getCardsTC(cardsPack_id));
   }; */
   // const onFilterMyPacksClick = (): void => {};
+
+  if (!isAuth) {
+    return <Navigate to={PATH.PROFILE} />;
+  }
 
   return (
     <div className={styleTable.wrap}>

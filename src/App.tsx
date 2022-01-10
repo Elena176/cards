@@ -5,31 +5,24 @@ import { useDispatch } from 'react-redux';
 import s from './App.module.css';
 import { Header } from './components/Header/Header';
 import { RoutesPart } from './components/Routes/RoutesPart';
+import { useAppSelector } from './hooks';
 import { ReturnComponentType } from './types';
 
-import { Preloader } from 'components';
-import { useAppSelector } from 'hooks';
-import { initializeAppTC } from 'store';
-import { getIsInitialized } from 'store/selectors';
+import { getIsDataLoaded, initializeAppTC } from 'store';
 
 export const App = (): ReturnComponentType => {
-  const isInitialized = useAppSelector(getIsInitialized);
+  const isAuth = useAppSelector(getIsDataLoaded);
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(initializeAppTC());
   }, [dispatch]);
-  if (!isInitialized) {
-    return (
-      <div className={s.preloaderWrap}>
-        <Preloader />
-      </div>
-    );
-  }
 
   return (
     <div className={s.app}>
       <div className={s.layout}>
-        <Header />
+        {isAuth ? <Header /> : <div />}
         <RoutesPart />
       </div>
     </div>
