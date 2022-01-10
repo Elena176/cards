@@ -19,10 +19,17 @@ export const Header = (): ReturnComponentType => {
 
   return (
     <div className={s.containerHeader}>
-      <div>
-        <NavLink to={PATH.PACKS}> packs </NavLink>---
-        <NavLink to={PATH.PROFILE}> profile </NavLink>---
-        {/* <NavLink to={PATH.REGISTRATION}> register </NavLink>--- */}
+      <div style={{ display: 'flex' }}>
+        <button className={s.btnHeader}>
+          <NavLink style={{ textDecoration: 'none', color: 'black' }} to={PATH.PACKS}>
+            Packs
+          </NavLink>
+        </button>
+        <button className={s.btnHeader}>
+          <NavLink style={{ textDecoration: 'none', color: 'black' }} to={PATH.PROFILE}>
+            Profile
+          </NavLink>
+        </button>
       </div>
       {isAuth && (
         <button className={s.btnHeader} onClick={onClickLogOut}>
