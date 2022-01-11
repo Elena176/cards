@@ -157,6 +157,10 @@ export const addCardTC =
           ? e.response.data.error
           : `${e.message}, more details in the console`;
         dispatch(setErrorMessageNetworkAC(errorNetwork));
+        const timeOut = 2000;
+        setTimeout(() => {
+          dispatch(setErrorMessageNetworkAC(''));
+        }, timeOut);
       })
       .finally(() => {
         dispatch(setAppStatusAC(requestStatus.succeeded));
