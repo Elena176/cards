@@ -148,7 +148,7 @@ export const addCardTC =
     cardsAPI
       .addNewCard(payload)
       .then(res => {
-        const newCard = res.data;
+        const { newCard } = res.data;
         dispatch(addCardAC(newCard));
         dispatch(setAppStatusAC(requestStatus.succeeded));
       })
@@ -157,6 +157,10 @@ export const addCardTC =
           ? e.response.data.error
           : `${e.message}, more details in the console`;
         dispatch(setErrorMessageNetworkAC(errorNetwork));
+        const timeOut = 2000;
+        setTimeout(() => {
+          dispatch(setErrorMessageNetworkAC(''));
+        }, timeOut);
       })
       .finally(() => {
         dispatch(setAppStatusAC(requestStatus.succeeded));
