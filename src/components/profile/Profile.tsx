@@ -1,14 +1,13 @@
 import React, { ChangeEvent, useState } from 'react';
 
+import { CircularProgress } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 
 import noneAvatarImage from '../../assets/avatar.png';
 import { InitialStateProfileType, setUserDataAC } from '../../store/reducers/profile';
-import { CustomButton } from '../customButton';
 
 import { profileAPI } from 'api/loginApi';
-import { Preloader } from 'components/preloader/Preloader';
 import { PATH } from 'enum/pathes';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { getIsDataLoaded, RootStoreType } from 'store';
@@ -22,10 +21,9 @@ export const Profile = (): ReturnComponentType => {
   );
   const isAuth = useAppSelector(getIsDataLoaded);
   const isLoading = useAppSelector(getStatus);
-  const { avatar } = userData;
+  const { avatar, email } = userData;
 
   const [name, setName] = useState(userData.name);
-  const [email, setEmail] = useState(userData.email);
   const [editMode, setEditMode] = useState<boolean>(false);
 
   const dispatch = useDispatch();
@@ -34,32 +32,26 @@ export const Profile = (): ReturnComponentType => {
     avatar:
       'https://tlgrm.ru/_/stickers/837/98f/83798fe7-d57e-300a-93fa-561e3027691e/2.jpg',
     name,
-    email,
-  };
-
-  const onSendButtonClick = (): void => {
-    profileAPI.updateProfile(data).then(res => {
-      dispatch(setUserDataAC(res.data.updatedUser));
-    });
   };
 
   const onChangeHandlerName = (event: ChangeEvent<HTMLInputElement>): void => {
     setName(event.currentTarget.value);
   };
-  const onChangeHandlerEmail = (event: ChangeEvent<HTMLInputElement>): void => {
-    setEmail(event.currentTarget.value);
-  };
 
   const activateEditForm = (): void => setEditMode(true);
+
   const hideEditForm = (): void => {
+    profileAPI.updateProfile(data).then(res => {
+      dispatch(setUserDataAC(res.data.updatedUser));
+    });
     setEditMode(false);
   };
-  const onPhotoSelected = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (event.target.files) {
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-      // updateProfileTC(event.target.files[0]);
-    }
-  };
+  /*  const onPhotoSelected = (event: ChangeEvent<HTMLInputElement>): void => {
+      if (event.target.files) {
+        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+        // updateProfileTC(event.target.files[0]);
+      }
+    }; */
 
   if (!isAuth) {
     return <Navigate to={PATH.LOGIN} />;
@@ -68,49 +60,35 @@ export const Profile = (): ReturnComponentType => {
   return (
     <div className={style.mainContainer}>
       {isLoading === 'loading' ? (
-        <Preloader />
+        <CircularProgress />
       ) : (
         <div className={style.content}>
-          <div className={style.contentWrap}>
-            <h2> Profile </h2>
-            <img
-              alt="avatar_image"
-              className={style.avatar}
-              src={avatar !== null ? avatar : noneAvatarImage}
+          <h2> Profile </h2>
+          <img
+            alt="avatar_image"
+            className={style.avatar}
+            src={avatar !== null ? avatar : noneAvatarImage}
+          />
+          <input type="file" className={style.avatar} />
+          {editMode ? (
+            <input
+              className={style.inputName}
+              name="name"
+              value={name}
+              onChange={onChangeHandlerName}
+              onBlur={hideEditForm}
             />
-            <input type="file" className={style.avatar} onChange={onPhotoSelected} />
-            {editMode ? (
-              <input
-                name="name"
-                value={name}
-                onChange={onChangeHandlerName}
-                onBlur={hideEditForm}
-              />
-            ) : (
-              <span onDoubleClick={activateEditForm}> Name: {name}</span>
-            )}
-            {editMode ? (
-              <input
-                name="email"
-                value={email}
-                onChange={onChangeHandlerEmail}
-                onBlur={hideEditForm}
-              />
-            ) : (
-              <span onDoubleClick={activateEditForm}> Email: {email}</span>
-            )}
-            <br />
-
-            <div>
-              please, follow: <Link to={PATH.PACKS}> packs </Link>
-            </div>
-            <div>
-              <CustomButton title="Send" onClick={onSendButtonClick} />
-              <span>
-                change <br /> your profile
+          ) : (
+            <div style={{ display: 'flex' }}>
+              <span style={{ cursor: 'pointer' }} onDoubleClick={activateEditForm}>
+                Name: {name}
               </span>
             </div>
-          </div>
+          )}
+          <p> Email: {email} </p>
+          <Link style={{ textDecoration: 'none', cursor: 'pointer' }} to={PATH.PACKS}>
+            add packs
+          </Link>
         </div>
       )}
     </div>

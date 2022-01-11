@@ -1,14 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&family=Roboto:ital,wght@1,100&family=Spline+Sans&display=swap');
+
 
 .app {
     box-sizing: content-box;
-    width: 100%;
-    height: 100%;
-    background-image: url("assets/science.jpg");
-    background-repeat: no-repeat;
+    max-width: 1400px;
+    height: 1000px;
+    border: 2px solid black;
+    margin: 0 auto;
+    /*background-image: url("../assets/science.jpg");*/
+    /*background-repeat: no-repeat;
     background-size: cover;
+    border: 2px solid black;
     align-content: center;
-    justify-content: center;
+    justify-content: center;*/
 
 }
 
@@ -38,13 +42,14 @@
 
 h2, span {
     color: #233319;
-    font-family: 'Mochiy Pop P One', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
 }
 
 h3 {
     color: #23341e;
     font-size: 28px;
-    font-family: 'Mochiy Pop P One', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 p {

@@ -5,7 +5,7 @@ import { ResponseDeckType } from './decksTC';
 import { instance } from 'api/apiConfig';
 
 export type addNewDeckType = {
-  name: string;
+  name?: string;
 };
 
 export type updateDeckType = {
