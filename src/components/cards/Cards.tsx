@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -27,6 +27,7 @@ export const Cards = (): ReturnComponentType => {
   const currentPage = useAppSelector(state => state.cards.page);
   const totalCount = useAppSelector(state => state.cards.cardsTotalCount);
   const perPage = useAppSelector(state => state.cards.pageCount);
+  const [isShow, setIsShow] = useState<boolean>(false);
   console.log('cards', cards);
   const dispatch = useDispatch();
   // const navigate = useNavigate();
@@ -34,6 +35,9 @@ export const Cards = (): ReturnComponentType => {
   // const random = 100000;
   const params = useParams<'cardsPack_id'>();
   const { cardsPack_id } = params as { cardsPack_id: string };
+  const onClickRemoveCard = (): void => {
+    setIsShow(true);
+  };
   /* const onClickRemoveCard = (_id: string): void => {
     dispatch(removeCardTC(_id));
     dispatch(setErrorMessageNetworkAC(''));
@@ -53,10 +57,8 @@ export const Cards = (): ReturnComponentType => {
       <td>
         {userId === card.user_id && (
           <div className={style.btns}>
-            <button>
-              onClick=
-              <DeleteCardModal />
-            </button>
+            <button onClick={onClickRemoveCard}>Delete</button>
+            {isShow && <DeleteCardModal />}
             <CustomButton
               title="update"
               onClick={() => onClickUpdateCard(card._id, card.question, card.answer)}

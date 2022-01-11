@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import { PATH } from '../../enum';
 import { ReturnComponentType } from '../../types';
-
-import { Modal } from './Modal';
 
 /* type DeleteCardModalPropsType = {
   cardId: string;
@@ -13,8 +11,7 @@ import { Modal } from './Modal';
 
 export const DeleteCardModal = (): ReturnComponentType => {
   // const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [isShown, setIsShown] = useState<boolean>(true);
+  const isShown = true;
   // const {isOpen, onToggle} = useModal()
 
   /*  const onClickRemoveCard = (_id: string): void => {
@@ -22,9 +19,9 @@ export const DeleteCardModal = (): ReturnComponentType => {
     dispatch(setErrorMessageNetworkAC(''));
     setIsShown(false);
   }; */
-  const onClickHandleCancel = (): void => {
+  /* const onClickHandleCancel = (): void => {
     navigate(PATH.CARDS);
-  };
+  }; */
   if (isShown) {
     return <Navigate to={PATH.CARDS} />;
   }
@@ -32,10 +29,10 @@ export const DeleteCardModal = (): ReturnComponentType => {
     <>
       {/* <Button onClick={() => onToggle()} disabled={buttonDisable}>Delete</Button> */}
 
-      <Modal open={isShown} onClick={() => setIsShown(true)}>
+      {/*  <Modal open={isShown} onClick={() => setIsShown(true)}>
         <button onClick={() => {}}>Delete</button>
         <button onClick={onClickHandleCancel}>Cancel</button>
-      </Modal>
+      </Modal> */}
     </>
   );
 };
