@@ -1,5 +1,7 @@
 import { AxiosResponse } from 'axios';
 
+import { Nullable } from '../types';
+
 import { instance } from './apiConfig';
 
 export const cardsAPI = {
@@ -20,7 +22,8 @@ export const cardsAPI = {
 // types
 
 export type AddCardType = {
-  cardsPack_id: string;
+  cardsPack_id?: string;
+  answer?: Nullable<string>;
   /* answer: string;
   question: string; */
   /* grade: number;

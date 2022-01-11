@@ -30,8 +30,6 @@ export const Cards = (): ReturnComponentType => {
 
   const dispatch = useDispatch();
 
-  /* const timeOut = 1000; */
-
   const params = useParams<'cardsPack_id'>();
   const { cardsPack_id } = params as { cardsPack_id: string };
 
@@ -42,10 +40,6 @@ export const Cards = (): ReturnComponentType => {
 
   const onClickAddCard = (): void => {
     dispatch(addCardTC({ cardsPack_id }));
-    /* if (errorNetworkMessage) {
-      setTimeout(() => {}, timeOut);
-    } */
-    dispatch(setErrorMessageNetworkAC(''));
   };
 
   const onClickUpdateCard = (_id: string, question: string, answer: string): void => {

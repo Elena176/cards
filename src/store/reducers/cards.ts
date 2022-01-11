@@ -148,7 +148,7 @@ export const addCardTC =
     cardsAPI
       .addNewCard(payload)
       .then(res => {
-        const newCard = res.data;
+        const { newCard } = res.data;
         dispatch(addCardAC(newCard));
         dispatch(setAppStatusAC(requestStatus.succeeded));
       })

@@ -12,17 +12,27 @@ export type updateDeckType = {
   _id: string;
 };
 
+export type dataRequestType = {
+  page?: number;
+  pageCount?: number;
+  min?: number;
+  max?: number;
+  sortPacks?: string;
+  user_id?: string;
+  packName?: string;
+};
+
 export const decksAPI = {
   fetchDecks(page: number, pageCount: number) {
     return instance.get<any, AxiosResponse<ResponseDeckType>>('cards/pack', {
       params: { page, pageCount },
     });
   },
-  fetchMyDecks(page: number, pageCount: number, userId: string) {
-    return instance.get<any, AxiosResponse<ResponseDeckType>>('cards/pack', {
-      params: { page, pageCount, userId },
-    });
+
+  getPacks(data: dataRequestType) {
+    return instance.get<any, AxiosResponse<any>>('cards/pack', { params: { ...data } });
   },
+
   addNewDeck(cardsPack: addNewDeckType) {
     return instance.post<addNewDeckType, AxiosResponse<any>>('cards/pack', { cardsPack });
   },
