@@ -9,7 +9,14 @@ import { requestStatus } from 'enum';
 import { setErrorMessageNetworkAC } from 'store';
 import { setAppStatusAC } from 'store/reducers';
 
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+export enum PACKS_AC {
+  SET_CURRENT_PAGE = 'SET_CURRENT_PAGE',
+  ADD_DECK = 'ADD_DECK',
+  REMOVE_DECK = 'REMOVE_DECK',
+  SET_TOTAL_COUNT = 'SET_TOTAL_COUNT',
+  SET_DECKS = 'SET_DECKS',
+  UPDATE_DECK = 'UPDATE_DECK',
+}
 
 export type deckTemplate = {
   _id: string;
@@ -49,31 +56,28 @@ export const decksReducer = (
   action: ActionsType,
 ): ResponseDeckType => {
   switch (action.type) {
-    case 'FETCH_DECKS':
-      // return [...state, ...action.decks];
+    case PACKS_AC.SET_DECKS:
       return { ...state, ...action.payload };
-    case 'REMOVE_DECK':
-      // return state.filter(deck => deck._id !== action.id);
+    case PACKS_AC.REMOVE_DECK:
       return {
         ...state,
         cardPacks: state.cardPacks.filter(deck => deck._id !== action.id),
       };
-    case 'ADD_DECK':
-      // return [{ ...action.deck }, ...state];
+    case PACKS_AC.ADD_DECK:
       return { ...state, cardPacks: [action.deck, ...state.cardPacks] };
-    case 'UPDATE_DECK':
-      // return state.map(deck =>
-      //   deck._id === action.id ? { ...deck, name: action.title } : deck,
-      // );
-      // debugger;
+    case PACKS_AC.UPDATE_DECK:
       return {
         ...state,
         cardPacks: state.cardPacks.map(deck =>
           deck._id === action.id ? { ...deck, name: action.title } : deck,
         ),
       };
-    case 'SET_CURRENT_PAGE':
+    case PACKS_AC.SET_CURRENT_PAGE:
       return { ...state, page: action.pageNumber };
+
+    case PACKS_AC.SET_TOTAL_COUNT:
+      return { ...state, cardPacksTotalCount: action.cardPacksTotalCount };
+
     default:
       return state;
   }
@@ -82,38 +86,43 @@ export const decksReducer = (
 // actions
 export const fetchDecksAC = (payload: any) =>
   ({
-    type: 'FETCH_DECKS',
+    type: PACKS_AC.SET_DECKS,
     payload,
   } as const);
+
 export const deleteDeckAC = (id: string) =>
   ({
-    type: 'REMOVE_DECK',
+    type: PACKS_AC.REMOVE_DECK,
     id,
   } as const);
 export const addDeckAC = (deck: any) =>
   ({
-    type: 'ADD_DECK',
+    type: PACKS_AC.ADD_DECK,
     deck,
   } as const);
 
 export const upDateDeckAC = (title: any, id: string) =>
   ({
-    type: 'UPDATE_DECK',
+    type: PACKS_AC.UPDATE_DECK,
     title,
     id,
   } as const);
 export const setCurrentPageAC = (pageNumber: number) =>
   ({
-    type: SET_CURRENT_PAGE,
+    type: PACKS_AC.SET_CURRENT_PAGE,
     pageNumber,
   } as const);
+
+export const setTotalCountAC = (cardPacksTotalCount: number) =>
+  ({ type: PACKS_AC.SET_TOTAL_COUNT, cardPacksTotalCount } as const);
 
 type ActionsType =
   | ReturnType<typeof fetchDecksAC>
   | ReturnType<typeof deleteDeckAC>
   | ReturnType<typeof addDeckAC>
   | ReturnType<typeof upDateDeckAC>
-  | ReturnType<typeof setCurrentPageAC>;
+  | ReturnType<typeof setCurrentPageAC>
+  | ReturnType<typeof setTotalCountAC>;
 
 // thunk
 
@@ -121,7 +130,7 @@ export const setDecksTC = (): AppThunk => (dispatch: Dispatch, getState) => {
   const { page, pageCount } = getState().decks;
   dispatch(setAppStatusAC(requestStatus.loading));
   decksAPI
-    .fetchDecks(page, pageCount)
+    .getPacks({ page, pageCount })
     .then(res => {
       dispatch(fetchDecksAC(res.data));
       dispatch(setAppStatusAC(requestStatus.succeeded));
@@ -139,7 +148,7 @@ export const setMyDecksTC = (): AppThunk => (dispatch: Dispatch, getState) => {
   const { _id } = getState().profilePage;
   dispatch(setAppStatusAC(requestStatus.loading));
   decksAPI
-    .fetchMyDecks(page, pageCount, _id)
+    .getPacks({ page, pageCount, user_id: _id })
     .then(res => {
       dispatch(fetchDecksAC(res.data));
       dispatch(setAppStatusAC(requestStatus.succeeded));

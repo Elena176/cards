@@ -23,7 +23,6 @@ export const Card = (): ReturnComponentType => {
   const onClickHandleCancel = (): void => {
     navigate(PATH.CARDS);
   };
-
   /* const onClickAddCard = (): void => {
     dispatch(addCardTC({ cardsPack_id, question, answer, grade, shots }));
   }; */
