@@ -1,0 +1,50 @@
+
+.overlay {
+position: absolute;
+  top:0;
+  left:0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  background-color: rgba(0,0,0, 0.7);
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 500px ;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  background-color:white;
+  /*border: 2px solid red;*/
+  padding: 10px;
+  border-radius: 10px;
+}
+.closeButton {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  /*border: 1px solid black;*/
+  border-radius: 10px;
+}
+.inputSection {
+  width: 300px;
+  margin: 1em 0;
+}
+.btns {
+  display: flex;
+  width: 300px;
+}
+.contentSection {
+  min-width: 500px;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 
 import { PATH } from '../../enum';
+import styleModal from '../ModalPortal/ModalPortal.module.css';
 import { Pagination } from '../pagination';
 
 import {
@@ -17,6 +18,7 @@ import {
 import styleTable from './Table.module.css';
 
 import { CustomButton, CustomInput, TableSidebar } from 'components/index';
+import Modal from 'components/ModalPortal/ModalPortal';
 import { useAppSelector } from 'hooks';
 import {
   getErrorNetworkMessage,
@@ -30,6 +32,10 @@ import { ReturnComponentType } from 'types';
 
 export const Table = (): ReturnComponentType => {
   const [searchName, setSearchName] = useState('');
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [title, setTitle] = useState('');
+
   const isAuth = useAppSelector(getIsDataLoaded);
   const userData = useSelector<RootStoreType, InitialStateProfileType>(
     state => state.profilePage,
@@ -49,8 +55,21 @@ export const Table = (): ReturnComponentType => {
   }, [dispatch, currentPage]);
 
   const addButtonClick = (): void => {
-    dispatch(addDeckTC({}));
+    setIsOpen(true);
   };
+
+  const addButtonClickFromModal = (): void => {
+    dispatch(addDeckTC({ name: title }));
+    setIsOpen(false);
+  };
+
+  const cancelButtonClickFromModal = (): void => {
+    setIsOpen(false);
+  };
+  const onChangeTitle = (e: any): void => {
+    setTitle(e.currentTarget.value);
+  };
+
   const onChangeSearchName = (e: ChangeEvent<HTMLInputElement>): void => {
     setSearchName(e.currentTarget.value);
   };
@@ -87,17 +106,44 @@ export const Table = (): ReturnComponentType => {
         <CircularProgress />
       ) : (
         <div className={styleTable.content}>
-          <TableSidebar />
+          {/* <TableSidebar /> */}
           <div className={styleTable.tableWrapper}>
             <h3 className={styleTable.header}> Packs list </h3>
+
+            <Modal
+              isOpen={isOpen}
+              onClose={() => {
+                setIsOpen(false);
+              }}
+            >
+              <div className={styleModal.contentSection}>
+                <p>Do you want to add new pack?</p>
+                <div className={styleModal.inputSection}>
+                  <CustomInput
+                    placeholder="title new pack"
+                    typeInput="text"
+                    value={title}
+                    onChange={onChangeTitle}
+                  />
+                </div>
+                <div className={styleModal.btns}>
+                  <CustomButton title="Add new pack" onClick={addButtonClickFromModal} />
+                  <CustomButton title="Cancel" onClick={cancelButtonClickFromModal} />
+                </div>
+              </div>
+            </Modal>
+
             <div className={styleTable.inputBlock}>
-              <CustomInput
-                onChange={onChangeSearchName}
-                value={searchName}
-                placeholder="Search"
-                typeInput="search"
-                /* onKeyPress={onEnterPress} */
-              />
+              <div style={{ minWidth: '300px' }}>
+                <CustomInput
+                  onChange={onChangeSearchName}
+                  value={searchName}
+                  placeholder="Search"
+                  typeInput="search"
+                  /* onKeyPress={onEnterPress} */
+                />
+              </div>
+              <TableSidebar />
               <div>
                 <CustomButton title="Add new pack" onClick={addButtonClick} />
               </div>
