@@ -23,10 +23,10 @@
     }
 .inputBlock {
     display: flex;
-    padding: 1em;}
-.content {
-    display: flex;
+    padding: 1em;
+    justify-content: space-around;
 }
+
 .header {
     font-size: 1.1em;
     padding: 1em;

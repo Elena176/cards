@@ -8,7 +8,6 @@ import { deckTemplate, fetchDecksAC, setMyDecksTC } from '../table/decksTC';
 import s from './tableSidebar.module.css';
 
 import { CustomButton } from 'components';
-import { SuperRange } from 'components/table';
 
 export const TableSidebar = React.memo(() => {
   const dispatch = useDispatch();
@@ -41,10 +40,6 @@ export const TableSidebar = React.memo(() => {
           <CustomButton title="My" onClick={onFilterMyPacksClick} />
           <CustomButton title="All" onClick={onAllButtonClick} />
         </div>
-      </div>
-      <div className={s.pickBlock}>
-        <div>Number of cards</div>
-        <SuperRange />
       </div>
     </div>
   );
