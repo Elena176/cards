@@ -11,6 +11,7 @@ type InputProps = {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   value: string;
   name?: string;
+  onKeyPress?: (e: any) => void;
 };
 
 export const CustomInput = memo(
@@ -21,6 +22,7 @@ export const CustomInput = memo(
     value,
     onChange,
     name,
+    onKeyPress,
   }: InputProps): ReturnComponentType => (
     <div className={s.inputWrap}>
       <input
@@ -34,6 +36,7 @@ export const CustomInput = memo(
         autoComplete="off"
         spellCheck={false}
         aria-autocomplete="list"
+        onKeyPress={onKeyPress}
       />
     </div>
   ),

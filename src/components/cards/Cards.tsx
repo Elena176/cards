@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { CircularProgress } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
@@ -16,6 +16,9 @@ import {
 } from '../../store/reducers/cards';
 import { ReturnComponentType } from '../../types';
 import { CustomButton } from '../customButton';
+import { CustomInput } from '../customInput';
+import Modal from '../ModalPortal/ModalPortal';
+import styleModal from '../ModalPortal/ModalPortal.module.css';
 import { Pagination } from '../pagination';
 import styleTable from '../table/Table.module.css';
 
@@ -28,6 +31,10 @@ export const Cards = (): ReturnComponentType => {
   const totalCount = useAppSelector(state => state.cards.cardsTotalCount);
   const perPage = useAppSelector(state => state.cards.pageCount);
 
+  const [isOpenFromCards, setIsOpenFromCards] = useState(false);
+  const [nameQuestion, setQuestionCard] = useState('');
+  const [nameAnswer, setAnswerCard] = useState('');
+
   const dispatch = useDispatch();
 
   const params = useParams<'cardsPack_id'>();
@@ -39,7 +46,29 @@ export const Cards = (): ReturnComponentType => {
   };
 
   const onClickAddCard = (): void => {
-    dispatch(addCardTC({ cardsPack_id }));
+    setIsOpenFromCards(true);
+    // dispatch(addCardTC({ cardsPack_id }));
+  };
+
+  const addNewCardButtonClick = (): void => {
+    dispatch(addCardTC({ cardsPack_id, answer: nameAnswer, question: nameQuestion }));
+    setIsOpenFromCards(false);
+    setQuestionCard('');
+    setAnswerCard('');
+  };
+
+  const cancelButtonClick = (): void => {
+    setIsOpenFromCards(false);
+    setQuestionCard('');
+    setAnswerCard('');
+  };
+
+  const onChangeQuestionCard = (e: any): void => {
+    setQuestionCard(e.currentTarget.value);
+  };
+
+  const onChangeAnswerCard = (e: any): void => {
+    setAnswerCard(e.currentTarget.value);
   };
 
   const onClickUpdateCard = (_id: string, question: string, answer: string): void => {
@@ -49,16 +78,20 @@ export const Cards = (): ReturnComponentType => {
   const resultCards = cards.map((card: cardType) => (
     <div className={styleTable.table} key={card._id}>
       <div className={styleTable.tableEl}>{card.question}</div>
-      <div className={styleTable.tableElSmall}>{card.answer}</div>
-      <div className={styleTable.tableEl}>{card.updated}</div>
-      <div className={styleTable.tableEl}>{card.created}</div>
+      <div className={styleTable.tableElAnswer}>{card.answer}</div>
+      <div className={styleTable.tableElSmall}>{card.updated}</div>
+      <div className={styleTable.tableElSmall}>{card.created}</div>
       {userId === card.user_id && (
         <div style={{ display: 'flex' }}>
-          <CustomButton title="Del" onClick={() => onClickRemoveCard(card._id)} />
-          <CustomButton
-            title="Update"
-            onClick={() => onClickUpdateCard(card._id, card.question, card.answer)}
-          />
+          <div>
+            <CustomButton title="Del" onClick={() => onClickRemoveCard(card._id)} />{' '}
+          </div>
+          <div style={{ paddingLeft: '0.3em' }}>
+            <CustomButton
+              title="Update"
+              onClick={() => onClickUpdateCard(card._id, card.question, card.answer)}
+            />
+          </div>
         </div>
       )}
     </div>
@@ -73,6 +106,37 @@ export const Cards = (): ReturnComponentType => {
         <CircularProgress />
       ) : (
         <div>
+          <Modal
+            isOpen={isOpenFromCards}
+            onClose={() => {
+              setIsOpenFromCards(false);
+            }}
+          >
+            <div className={styleModal.contentSection}>
+              <p>Do you want to add new card?</p>
+              <div className={styleModal.inputSection}>
+                <CustomInput
+                  placeholder="question"
+                  typeInput="text"
+                  value={nameQuestion}
+                  onChange={onChangeQuestionCard}
+                />
+              </div>
+              <div className={styleModal.inputSection}>
+                <CustomInput
+                  placeholder="answer"
+                  typeInput="text"
+                  value={nameAnswer}
+                  onChange={onChangeAnswerCard}
+                />
+              </div>
+              <div className={styleModal.btns}>
+                <CustomButton title="Add new card" onClick={addNewCardButtonClick} />
+                <CustomButton title="Cancel" onClick={cancelButtonClick} />
+              </div>
+            </div>
+          </Modal>
+
           <div style={{ width: '100px', margin: '10px' }}>
             <CustomButton title="Add card" onClick={onClickAddCard} />
           </div>
@@ -80,10 +144,10 @@ export const Cards = (): ReturnComponentType => {
             <span style={{ color: 'red' }}> {errorNetworkMessage} </span>
           )}
           <div className={styleTable.table}>
-            <div className={styleTable.tableEl}>Name</div>
-            <div className={styleTable.tableElSmall}>CardsCount</div>
-            <div className={styleTable.tableEl}>Created by</div>
-            <div className={styleTable.tableEl}>Updated</div>
+            <div className={styleTable.tableEl}>Question</div>
+            <div className={styleTable.tableEl}>Answer</div>
+            <div className={styleTable.tableElSmall}>Updated</div>
+            <div className={styleTable.tableElSmall}>Created by</div>
             <div className={styleTable.tableEl}>Actions</div>
           </div>
           {resultCards}
