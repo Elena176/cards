@@ -31,7 +31,7 @@ const initialState: initStateType = {
   maxGrade: 6,
   minGrade: 0,
   page: 1,
-  pageCount: 4,
+  pageCount: 10,
   packUserId: '',
 };
 export const cardReducer = (
