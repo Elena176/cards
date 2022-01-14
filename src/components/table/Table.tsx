@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import { CircularProgress } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 
 import { PATH } from '../../enum';
@@ -12,6 +12,7 @@ import {
   addDeckTC,
   deckTemplate,
   removeDeckTC,
+  searchPacksTC,
   setCurrentPageAC,
   setDecksTC,
 } from './decksTC';
@@ -20,15 +21,11 @@ import styleTable from './Table.module.css';
 import { CustomButton, CustomInput, TableSidebar } from 'components/index';
 import Modal from 'components/ModalPortal/ModalPortal';
 import { useAppSelector } from 'hooks';
-import {
-  getErrorNetworkMessage,
-  getIsDataLoaded,
-  RootStoreType,
-  setErrorMessageNetworkAC,
-} from 'store';
-import { InitialStateProfileType } from 'store/reducers/profile';
+import { getErrorNetworkMessage, getIsDataLoaded, setErrorMessageNetworkAC } from 'store';
 import { getStatus } from 'store/selectors';
 import { ReturnComponentType } from 'types';
+
+const enter = 13;
 
 export const Table = (): ReturnComponentType => {
   const [searchName, setSearchName] = useState('');
@@ -37,9 +34,7 @@ export const Table = (): ReturnComponentType => {
   const [title, setTitle] = useState('');
 
   const isAuth = useAppSelector(getIsDataLoaded);
-  const userData = useSelector<RootStoreType, InitialStateProfileType>(
-    state => state.profilePage,
-  );
+  const userId = useAppSelector(state => state.profilePage._id);
 
   const dispatch = useDispatch();
 
@@ -61,10 +56,12 @@ export const Table = (): ReturnComponentType => {
   const addButtonClickFromModal = (): void => {
     dispatch(addDeckTC({ name: title }));
     setIsOpen(false);
+    setTitle('');
   };
 
   const cancelButtonClickFromModal = (): void => {
     setIsOpen(false);
+    setTitle('');
   };
   const onChangeTitle = (e: any): void => {
     setTitle(e.currentTarget.value);
@@ -78,15 +75,22 @@ export const Table = (): ReturnComponentType => {
     dispatch(setErrorMessageNetworkAC(''));
   };
 
+  const onEnterPress = (e: any): void => {
+    if (e.charCode === enter) {
+      dispatch(searchPacksTC(searchName));
+      setSearchName('');
+    }
+  };
+
   const resultPacks = cardPacks.map((pack: deckTemplate) => (
     <div className={styleTable.table} key={pack._id + pack.name}>
       <div className={styleTable.tableEl}>{pack.name}</div>
       <div className={styleTable.tableElSmall}>{pack.cardsCount}</div>
-      <div className={styleTable.tableEl}>{pack.user_name}</div>
-      <div className={styleTable.tableEl}>{pack.updated}</div>
+      <div className={styleTable.tableElSmall}>{pack.user_name}</div>
+      <div className={styleTable.tableElSmall}>{pack.updated}</div>
       <div className={styleTable.tableEl} style={{ display: 'flex' }}>
         <Link to={`${PATH.CARDS}/${pack._id}`}>Learn</Link>
-        {userData.name === pack.user_name && (
+        {userId === pack.user_id && (
           <div style={{ display: 'flex' }}>
             <CustomButton title="Del" onClick={() => onRemoveDeckClick(pack._id)} />
             <CustomButton title="Update" onClick={() => {}} />
@@ -100,13 +104,13 @@ export const Table = (): ReturnComponentType => {
     return <Navigate to={PATH.PROFILE} />;
   }
 
+  // @ts-ignore
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       {isLoading === 'loading' ? (
         <CircularProgress />
       ) : (
         <div className={styleTable.content}>
-          {/* <TableSidebar /> */}
           <div className={styleTable.tableWrapper}>
             <h3 className={styleTable.header}> Packs list </h3>
 
@@ -127,8 +131,15 @@ export const Table = (): ReturnComponentType => {
                   />
                 </div>
                 <div className={styleModal.btns}>
-                  <CustomButton title="Add new pack" onClick={addButtonClickFromModal} />
-                  <CustomButton title="Cancel" onClick={cancelButtonClickFromModal} />
+                  <div style={{ paddingRight: '0.3em' }}>
+                    <CustomButton
+                      title="Add new pack"
+                      onClick={addButtonClickFromModal}
+                    />
+                  </div>
+                  <div>
+                    <CustomButton title="Cancel" onClick={cancelButtonClickFromModal} />
+                  </div>
                 </div>
               </div>
             </Modal>
@@ -140,7 +151,7 @@ export const Table = (): ReturnComponentType => {
                   value={searchName}
                   placeholder="Search"
                   typeInput="search"
-                  /* onKeyPress={onEnterPress} */
+                  onKeyPress={onEnterPress}
                 />
               </div>
               <TableSidebar />
@@ -152,8 +163,8 @@ export const Table = (): ReturnComponentType => {
             <div className={styleTable.table}>
               <div className={styleTable.tableEl}>Name</div>
               <div className={styleTable.tableElSmall}>CardsCount</div>
-              <div className={styleTable.tableEl}>Created by</div>
-              <div className={styleTable.tableEl}>Updated</div>
+              <div className={styleTable.tableElSmall}>Created by</div>
+              <div className={styleTable.tableElSmall}>Updated</div>
               <div className={styleTable.tableEl}>Actions</div>
             </div>
             {errorNetworkMessage && (

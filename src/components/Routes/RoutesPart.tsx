@@ -5,7 +5,6 @@ import { Route, Routes } from 'react-router-dom';
 import { PATH } from '../../enum';
 import { ReturnComponentType } from '../../types';
 import { Cards } from '../cards';
-import { Card } from '../cards/Card';
 import { ConfirmPassword, CreateNewPassword, Popup } from '../confirmPassword';
 import { Login } from '../loginPage';
 import { Profile } from '../profile';
@@ -26,7 +25,6 @@ export const RoutesPart = (): ReturnComponentType => (
     <Route path={PATH.CARDS} element={<Cards />}>
       <Route path=":cardsPack_id" element={<Cards />} />
     </Route>
-    <Route path={PATH.CARD} element={<Card />} />
     <Route path={PATH.PACKS} element={<Table />} />
   </Routes>
 );

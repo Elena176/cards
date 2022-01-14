@@ -2,18 +2,21 @@
     width: 250px;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    padding: 0.5em 0.5em;
+    white-space: pre-wrap;
+    padding: 0.3em 0.3em;
 
 }
 .tableElSmall{
-    width: 150px;
-    padding: 0.5em 0;
+    width: 170px;
+    padding: 0.3em 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
 
 }
 .table {
     display: flex;
-    padding: 0.5em 0;
+    padding: 0.3em 0;
     border: 1px solid black;
 
 }
@@ -30,5 +33,10 @@
 .header {
     font-size: 1.1em;
     padding: 1em;
+}
+.tableElAnswer {
+    width: 250px;
+    white-space: pre-wrap;
+    padding: 0.3em 0.3em;
 }
 

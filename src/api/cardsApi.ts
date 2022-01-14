@@ -24,6 +24,7 @@ export const cardsAPI = {
 export type AddCardType = {
   cardsPack_id?: string;
   answer?: Nullable<string>;
+  question?: Nullable<string>;
   /* answer: string;
   question: string; */
   /* grade: number;
