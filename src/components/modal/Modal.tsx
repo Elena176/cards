@@ -1,35 +1,35 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 
 import s from './Modal.module.css';
 
-type ModalProps = {
+export type ModalProps = {
   title: string;
-  onClick: () => void;
+  isOpen: boolean;
+  setIsShown: (isOpen: boolean) => void;
 };
 
-export const Modal: FC<ModalProps> = ({ title, onClick, children }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+export const Modal: FC<ModalProps> = ({ title, isOpen, setIsShown, children }) => {
   const onClickCancel = (): void => {
-    setIsOpen(false);
+    setIsShown(false);
   };
+  console.log('modal');
+
   return (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    <>
-      {isOpen && (
-        <div className={s.modalContainer}>
-          <div className={s.modalWindow}>
-            <div className={s.modalBody}>
-              <div className={s.modalTitle}>{title}</div>
-              <div className={s.modalBody}>{children}</div>
-              <button className={s.modalCancel} onClick={onClickCancel}>
-                Cancel
-              </button>
-              <button onClick={onClick}>Ok</button>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+    <div
+      className={isOpen ? s.modalContainerActive : s.modalContainer}
+      onClick={() => setIsShown(false)}
+    >
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+      <div className={s.modalBody} onClick={e => e.stopPropagation()}>
+        <div className={s.modalTitle}>{title}</div>
+        <div className={s.modalBody}>{children}</div>
+        <button className={s.modalCancel} onClick={onClickCancel}>
+          Cancel
+        </button>
+        <button onClick={() => setIsShown(false)}>Ok</button>
+      </div>
+    </div>
   );
 };
 /*
