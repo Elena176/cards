@@ -31,7 +31,7 @@ const initialState: initStateType = {
   maxGrade: 6,
   minGrade: 0,
   page: 1,
-  pageCount: 10,
+  pageCount: 7,
   packUserId: '',
 };
 export const cardReducer = (
@@ -91,10 +91,14 @@ export const setCurrentPageCardsAC = (pageNumber: number) =>
 
 export const getCardsTC =
   (cardsPackId: string) =>
-  (dispatch: ThunkDispatch<RootStoreType, undefined, ActionTypesCards>) => {
+  (
+    dispatch: ThunkDispatch<RootStoreType, undefined, ActionTypesCards>,
+    getState: () => RootStoreType,
+  ) => {
+    const { page, pageCount } = getState().cards;
     dispatch(setAppStatusAC(requestStatus.loading));
     cardsAPI
-      .getCards(cardsPackId)
+      .getCards(cardsPackId, page, pageCount)
       .then(res => {
         dispatch(setCardsAC(res.data));
         dispatch(setAppStatusAC(requestStatus.succeeded));

@@ -5,8 +5,10 @@ import { Nullable } from '../types';
 import { instance } from './apiConfig';
 
 export const cardsAPI = {
-  getCards(cardsPackId: string) {
-    return instance.get<ResponseType>(`cards/card?cardsPack_id=${cardsPackId}`);
+  getCards(cardsPackId: string, page: number, pageCount: number) {
+    return instance.get<ResponseType>(`cards/card?cardsPack_id=${cardsPackId}`, {
+      params: { page, pageCount },
+    });
   },
   deleteCard(_id: string) {
     return instance.delete<AxiosResponse<ResponseType>>(`cards/card?id=${_id}`);
