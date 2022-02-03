@@ -40,6 +40,13 @@ export const Cards = (): ReturnComponentType => {
   const params = useParams<'cardsPack_id'>();
   const { cardsPack_id } = params as { cardsPack_id: string };
 
+  /* const onClickRemoveCard = (_id: string): void => {
+    dispatch(removeCardTC(_id));
+    dispatch(setErrorMessageNetworkAC(''));
+  }; */
+  /* const deleteCard = (): void => {
+    setIsOpenFromCards(true);
+  }; */
   const onClickRemoveCard = (_id: string): void => {
     dispatch(removeCardTC(_id));
     dispatch(setErrorMessageNetworkAC(''));
@@ -136,7 +143,25 @@ export const Cards = (): ReturnComponentType => {
               </div>
             </div>
           </Modal>
-
+          <Modal
+            title="delete"
+            isOpen={isOpenFromCards}
+            onClose={() => {
+              setIsOpenFromCards(false);
+            }}
+          >
+            <div className={styleModal.contentSection}>
+              <p>Are you sure you want to delete the card?</p>
+              <div className={styleModal.inputSection}>
+                {/* <button onClick={() => onClickRemoveCard()}>Delete</button> */}
+                <button>Cancel</button>
+              </div>
+              <div className={styleModal.btns}>
+                <CustomButton title="Add new card" onClick={addNewCardButtonClick} />
+                <CustomButton title="Cancel" onClick={cancelButtonClick} />
+              </div>
+            </div>
+          </Modal>
           <div style={{ width: '100px', margin: '10px' }}>
             <CustomButton title="Add card" onClick={onClickAddCard} />
           </div>
