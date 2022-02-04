@@ -91,6 +91,7 @@
         "unnamedComponents": "arrow-function"
       }
     ],
+    "react/no-unstable-nested-components": 0,
     "import/extensions": "off",
     "import/prefer-default-export": "off",
     "import/order": [
