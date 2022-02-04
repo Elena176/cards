@@ -6,17 +6,17 @@ import { useParams } from 'react-router-dom';
 
 import { cardType } from '../../api/cardsApi';
 import { useAppSelector } from '../../hooks';
-import { getErrorNetworkMessage, getStatus, setErrorMessageNetworkAC } from '../../store';
+import { getErrorNetworkMessage, getStatus } from '../../store';
 import {
   addCardTC,
   getCardsTC,
-  removeCardTC,
   setCurrentPageCardsAC,
   updateCardTC,
 } from '../../store/reducers/cards';
 import { ReturnComponentType } from '../../types';
 import { CustomButton } from '../customButton';
 import { CustomInput } from '../customInput';
+import { DeleteCardModal } from '../ModalPortal/DeleteCardModal';
 import Modal from '../ModalPortal/ModalPortal';
 import styleModal from '../ModalPortal/ModalPortal.module.css';
 import { Pagination } from '../pagination';
@@ -40,17 +40,13 @@ export const Cards = (): ReturnComponentType => {
   const params = useParams<'cardsPack_id'>();
   const { cardsPack_id } = params as { cardsPack_id: string };
 
+  /* const deleteCard = (): void => {
+    setIsOpenFromCards(true);
+  }; */
   /* const onClickRemoveCard = (_id: string): void => {
     dispatch(removeCardTC(_id));
     dispatch(setErrorMessageNetworkAC(''));
   }; */
-  /* const deleteCard = (): void => {
-    setIsOpenFromCards(true);
-  }; */
-  const onClickRemoveCard = (_id: string): void => {
-    dispatch(removeCardTC(_id));
-    dispatch(setErrorMessageNetworkAC(''));
-  };
 
   const onClickAddCard = (): void => {
     setIsOpenFromCards(true);
@@ -91,7 +87,16 @@ export const Cards = (): ReturnComponentType => {
       {userId === card.user_id && (
         <div style={{ display: 'flex' }}>
           <div>
-            <CustomButton title="Del" onClick={() => onClickRemoveCard(card._id)} />{' '}
+            <CustomButton
+              title="Del"
+              onClick={() => (
+                <DeleteCardModal
+                  cardId={card._id}
+                  isOpen={isOpenFromCards}
+                  setIsOpen={setIsOpenFromCards}
+                />
+              )}
+            />
           </div>
           <div style={{ paddingLeft: '0.3em' }}>
             <CustomButton
@@ -143,7 +148,7 @@ export const Cards = (): ReturnComponentType => {
               </div>
             </div>
           </Modal>
-          <Modal
+          {/* <Modal
             title="delete"
             isOpen={isOpenFromCards}
             onClose={() => {
@@ -153,7 +158,7 @@ export const Cards = (): ReturnComponentType => {
             <div className={styleModal.contentSection}>
               <p>Are you sure you want to delete the card?</p>
               <div className={styleModal.inputSection}>
-                {/* <button onClick={() => onClickRemoveCard()}>Delete</button> */}
+                <button onClick={() => onClickRemoveCard()}>Delete</button>
                 <button>Cancel</button>
               </div>
               <div className={styleModal.btns}>
@@ -161,7 +166,7 @@ export const Cards = (): ReturnComponentType => {
                 <CustomButton title="Cancel" onClick={cancelButtonClick} />
               </div>
             </div>
-          </Modal>
+          </Modal> */}
           <div style={{ width: '100px', margin: '10px' }}>
             <CustomButton title="Add card" onClick={onClickAddCard} />
           </div>
