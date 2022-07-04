@@ -1,8 +1,8 @@
 .tableSidebar {
     display: flex;
     flex-direction: column;
-    min-width: 200px;
-    background-color: white;
+    min-width: 20%;
+    background-color: #e3b8f8;
     text-align: center;
     justify-content: center;
 }

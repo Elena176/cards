@@ -1,12 +1,29 @@
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
+.head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tableWrapper {
+    display: flex;
+    padding: .5em 0;
+    /* max-width: 700px;*/
+}
+.tableContainer {
+    max-width: 80%;
+}
 .tableEl {
     width: 250px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: pre-wrap;
     padding: 0.3em 0.3em;
-
 }
-.tableElSmall{
+
+.tableElSmall {
     width: 170px;
     padding: 0.3em 0;
     overflow: hidden;
@@ -14,26 +31,26 @@
     white-space: pre-wrap;
 
 }
+
 .table {
     display: flex;
     padding: 0.3em 0;
     border: 1px solid black;
-
 }
-.tableWrapper {
-    display: flex;
-    flex-direction: column;
-    }
+
+
 .inputBlock {
     display: flex;
-    padding: 1em;
+    flex-direction: column;
     justify-content: space-around;
+    padding: 1em;
 }
 
 .header {
     font-size: 1.1em;
     padding: 1em;
 }
+
 .tableElAnswer {
     width: 250px;
     white-space: pre-wrap;

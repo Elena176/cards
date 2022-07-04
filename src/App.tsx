@@ -27,7 +27,7 @@ export const App = (): ReturnComponentType => {
 
   return (
     <div className={styleApp.app}>
-      {isAuth ? <Header /> : <div style={{ minHeight: '70px' }} />}
+      {isAuth ? <Header /> : <div style={{ minHeight: '30px' }} />}
       <div className={styleApp.layout}>
         <RoutesPart />
       </div>

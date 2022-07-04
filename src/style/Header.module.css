@@ -1,15 +1,17 @@
 .containerHeader {
+    max-height: 30px;
     display: flex;
     justify-content: space-between;
-    padding: 1em 0;
+    padding: .5em 0;
     border-bottom: 2px solid black;
 }
 .btnHeader {
+    font-size: 16px;
     min-width: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1em;
+    padding: .5em;
     margin: 0 1em;
     border-radius: 10px;
 }

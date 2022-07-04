@@ -4,7 +4,7 @@ import { CircularProgress } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 
-import { PATH } from '../../enum';
+import { PATH, requestStatus } from '../../enum';
 import styleModal from '../ModalPortal/ModalPortal.module.css';
 import { Pagination } from '../pagination';
 
@@ -106,78 +106,72 @@ export const Table = (): ReturnComponentType => {
 
   // @ts-ignore
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-      {isLoading === 'loading' ? (
+    <div className={styleTable.container}>
+      {isLoading === requestStatus.loading ? (
         <CircularProgress />
       ) : (
-        <div className={styleTable.content}>
+        <div>
+          <div className={styleTable.head}>
+            <h3> Packs list </h3>
+            {/* search input */}
+            <CustomInput
+              onChange={onChangeSearchName}
+              value={searchName}
+              placeholder="Search"
+              typeInput="search"
+              onKeyPress={onEnterPress}
+            />
+            <button onClick={addButtonClick}>Add new pack</button>
+          </div>
           <div className={styleTable.tableWrapper}>
-            <h3 className={styleTable.header}> Packs list </h3>
+            <TableSidebar />
+            <div className={styleTable.tableContainer}>{resultPacks}</div>
+          </div>
 
-            <Modal
-              isOpen={isOpen}
-              onClose={() => {
-                setIsOpen(false);
-              }}
-            >
-              <div className={styleModal.contentSection}>
-                <p>Do you want to add new pack?</p>
-                <div className={styleModal.inputSection}>
-                  <CustomInput
-                    placeholder="title new pack"
-                    typeInput="text"
-                    value={title}
-                    onChange={onChangeTitle}
-                  />
-                </div>
-                <div className={styleModal.btns}>
-                  <div style={{ paddingRight: '0.3em' }}>
-                    <CustomButton
-                      title="Add new pack"
-                      onClick={addButtonClickFromModal}
-                    />
-                  </div>
-                  <div>
-                    <CustomButton title="Cancel" onClick={cancelButtonClickFromModal} />
-                  </div>
-                </div>
-              </div>
-            </Modal>
-
-            <div className={styleTable.inputBlock}>
-              <div style={{ minWidth: '300px' }}>
-                <CustomInput
-                  onChange={onChangeSearchName}
-                  value={searchName}
-                  placeholder="Search"
-                  typeInput="search"
-                  onKeyPress={onEnterPress}
-                />
-              </div>
-              <TableSidebar />
-              <div>
-                <CustomButton title="Add new pack" onClick={addButtonClick} />
-              </div>
-            </div>
-
-            <div className={styleTable.table}>
+          {/*  <div className={styleTable.table}>
               <div className={styleTable.tableEl}>Name</div>
               <div className={styleTable.tableElSmall}>CardsCount</div>
               <div className={styleTable.tableElSmall}>Created by</div>
               <div className={styleTable.tableElSmall}>Updated</div>
               <div className={styleTable.tableEl}>Actions</div>
+            </div> */}
+
+          {errorNetworkMessage && (
+            <span style={{ color: 'red' }}> {errorNetworkMessage} </span>
+          )}
+          <Pagination
+            currentPage={currentPage}
+            totalCount={totalCount}
+            pageSize={perPage}
+            onPageChange={(page: number) => dispatch(setCurrentPageAC(page))}
+          />
+
+          <Modal
+            isOpen={isOpen}
+            onClose={() => {
+              setIsOpen(false);
+            }}
+          >
+            <div className={styleModal.contentSection}>
+              <p>Do you want to add new pack?</p>
+              <div className={styleModal.inputSection}>
+                <CustomInput
+                  placeholder="title new pack"
+                  typeInput="text"
+                  value={title}
+                  onChange={onChangeTitle}
+                />
+              </div>
+              <div className={styleModal.btns}>
+                <div style={{ paddingRight: '0.3em' }}>
+                  <CustomButton title="Add new pack" onClick={addButtonClickFromModal} />
+                </div>
+                <div>
+                  <CustomButton title="Cancel" onClick={cancelButtonClickFromModal} />
+                </div>
+              </div>
             </div>
-            {errorNetworkMessage && (
-              <span style={{ color: 'red' }}> {errorNetworkMessage} </span>
-            )}
-            {resultPacks}
-            <Pagination
-              currentPage={currentPage}
-              totalCount={totalCount}
-              pageSize={perPage}
-              onPageChange={(page: number) => dispatch(setCurrentPageAC(page))}
-            />
-          </div>
+          </Modal>
         </div>
       )}
     </div>
