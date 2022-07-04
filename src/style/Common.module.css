@@ -2,8 +2,8 @@
 
 .mainContainer {
     display: flex;
+    max-width: 350px;
     height: 100%;
-    /*border: 2px solid red;*/
     justify-content: center;
     align-items: center;
 
@@ -14,8 +14,7 @@ input[type=checkbox]{
 }
 
 .content {
-    min-width: 500px;
-    min-height: 500px;
+    min-height: 360px;
     border: 2px solid black;
     display: flex;
     flex-direction: column;
