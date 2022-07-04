@@ -84,11 +84,11 @@ export const Table = (): ReturnComponentType => {
 
   const resultPacks = cardPacks.map((pack: deckTemplate) => (
     <div className={styleTable.table} key={pack._id + pack.name}>
-      <div className={styleTable.tableEl}>{pack.name}</div>
+      <div className={styleTable.tableElName}>{pack.name}</div>
       <div className={styleTable.tableElSmall}>{pack.cardsCount}</div>
       <div className={styleTable.tableElSmall}>{pack.user_name}</div>
-      <div className={styleTable.tableElSmall}>{pack.updated}</div>
-      <div className={styleTable.tableEl} style={{ display: 'flex' }}>
+      <div className={styleTable.tableElUpdated}>{pack.updated}</div>
+      <div className={styleTable.tableElAction}>
         <Link to={`${PATH.CARDS}/${pack._id}`}>Learn</Link>
         {userId === pack.user_id && (
           <div style={{ display: 'flex' }}>
@@ -121,20 +121,24 @@ export const Table = (): ReturnComponentType => {
               typeInput="search"
               onKeyPress={onEnterPress}
             />
-            <button onClick={addButtonClick}>Add new pack</button>
-          </div>
-          <div className={styleTable.tableWrapper}>
-            <TableSidebar />
-            <div className={styleTable.tableContainer}>{resultPacks}</div>
+            <button className={styleTable.default} onClick={addButtonClick}>
+              Add new pack
+            </button>
           </div>
 
-          {/*  <div className={styleTable.table}>
-              <div className={styleTable.tableEl}>Name</div>
-              <div className={styleTable.tableElSmall}>CardsCount</div>
-              <div className={styleTable.tableElSmall}>Created by</div>
-              <div className={styleTable.tableElSmall}>Updated</div>
-              <div className={styleTable.tableEl}>Actions</div>
-            </div> */}
+          <div className={styleTable.tableWrapper}>
+            <TableSidebar />
+            <div className={styleTable.tableContainer}>
+              <div className={styleTable.table}>
+                <div className={styleTable.tableElName}>Name</div>
+                <div className={styleTable.tableElSmall}>CardsCount</div>
+                <div className={styleTable.tableElSmall}>Created by</div>
+                <div className={styleTable.tableElUpdated}>Updated</div>
+                <div className={styleTable.tableElAction}>Actions</div>
+              </div>
+              {resultPacks}
+            </div>
+          </div>
 
           {errorNetworkMessage && (
             <span style={{ color: 'red' }}> {errorNetworkMessage} </span>

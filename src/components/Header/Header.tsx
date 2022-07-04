@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 import { PATH } from '../../enum';
 import { getIsDataLoaded, logOutTC } from '../../store';
+import styleCustomButton from '../../style/CustomButton.module.css';
 import { ReturnComponentType } from '../../types';
 
 import { useAppSelector } from 'hooks';
@@ -22,19 +23,19 @@ export const Header = (): ReturnComponentType => {
   return (
     <div className={styleHeader.containerHeader}>
       <div style={{ display: 'flex' }}>
-        <button className={styleHeader.btnHeader}>
+        <button className={styleCustomButton.button}>
           <NavLink className={styleHeader.link} to={PATH.PACKS}>
             Packs
           </NavLink>
         </button>
-        <button className={styleHeader.btnHeader}>
+        <button className={styleCustomButton.button}>
           <NavLink className={styleHeader.link} to={PATH.PROFILE}>
             Profile
           </NavLink>
         </button>
       </div>
       {isAuth && (
-        <button className={styleHeader.btnHeader} onClick={onClickLogOut}>
+        <button className={styleCustomButton.button} onClick={onClickLogOut}>
           LogOut
         </button>
       )}

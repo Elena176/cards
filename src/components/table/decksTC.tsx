@@ -48,7 +48,7 @@ const initialState: ResponseDeckType = {
   maxCardsCount: 0,
   minCardsCount: 0,
   page: 1,
-  pageCount: 7,
+  pageCount: 10,
 };
 
 export const decksReducer = (
