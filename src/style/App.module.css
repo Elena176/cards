@@ -4,7 +4,7 @@
 .app {
     box-sizing: content-box;
     max-width: 1400px;
-    height: 1000px;
+    height: 100vh;
     border: 2px solid black;
     margin: 0 auto;
     /*background-image: url("../assets/science.jpg");*/
@@ -27,10 +27,11 @@
 
 .layout {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 1em 2em;
-    width: 100%;
-    height: 100%;
+   /* width: 100%;
+    height: 100%;*/
 }
 
 .main {
