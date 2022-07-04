@@ -1,17 +1,11 @@
 .containerHeader {
+    max-height: 30px;
     display: flex;
     justify-content: space-between;
-    padding: 1em 0;
     border-bottom: 2px solid black;
 }
 .btnHeader {
-    min-width: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1em;
-    margin: 0 1em;
-    border-radius: 10px;
+    max-width: 60px;
 }
 .link {
     text-decoration: none;

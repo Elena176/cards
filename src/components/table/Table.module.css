@@ -1,42 +1,106 @@
-.tableEl {
-    width: 250px;
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
+.head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tableWrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: .5em 0;
+}
+.tableContainer {
+    max-width: 85%;
+}
+
+.table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.3em 0;
+    border: 1px solid black;
+}
+.tableElName {
+    width: 200px;
+}
+
+.tableElSmall {
+    width: 150px;
+    padding: 0.3em 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
+
+}
+
+.tableElUpdated {
+    width: 200px;
+}
+.tableElAction {
+    display: flex;
+    flex-direction: column;
+    width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: pre-wrap;
     padding: 0.3em 0.3em;
-
 }
-.tableElSmall{
-    width: 170px;
-    padding: 0.3em 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: pre-wrap;
-
-}
-.table {
+.button {
+    font-size: 16px;
+    min-width: 40px;
     display: flex;
-    padding: 0.3em 0;
-    border: 1px solid black;
-
+    align-items: center;
+    justify-content: center;
+    padding: .5em;
+    margin: 0 1em;
+    border-radius: 10px;
 }
-.tableWrapper {
-    display: flex;
-    flex-direction: column;
-    }
+.default {
+    border: none;
+    outline: none;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    /* Можно также использовать любые встроенные и кастомные шрифты, например, отсюда  */
+    font-family: Roboto, Verdana, Tahoma, sans;
+    /* Тут можно поэкспериментировать */
+    margin: 5px;
+    padding: 10px 14px;
+    border-radius: 70px;
+    color: #25142E;
+    background-color: aquamarine;
+}
+
+.default:hover {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.default:active {
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/*
 .inputBlock {
     display: flex;
-    padding: 1em;
+    flex-direction: column;
     justify-content: space-around;
+    padding: 1em;
 }
-
+*/
+/*
 .header {
     font-size: 1.1em;
     padding: 1em;
-}
+}*/
+/*
 .tableElAnswer {
     width: 250px;
     white-space: pre-wrap;
     padding: 0.3em 0.3em;
-}
+}*/
 
