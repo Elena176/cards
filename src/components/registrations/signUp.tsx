@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { useDispatch } from 'react-redux';
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import { RegisterParamsType } from '../../api';
+import { toggleIsSignUpAC } from '../../store/reducers/signUp';
 import styleRegister from '../../style/Registrations.module.css';
 
 import { CustomButton, CustomInput } from 'components';
@@ -45,9 +46,10 @@ export const SignUp = (): ReturnComponentType => {
     email,
     password,
   };
-  const timeOut = 1000;
+  const timeOut = 3000;
 
   const onCancelButtonClick = (): void => {
+    dispatch(toggleIsSignUpAC(true));
     resetEmail('');
     resetPassword('');
     resetConfirmPassword('');
@@ -79,11 +81,7 @@ export const SignUp = (): ReturnComponentType => {
   return (
     <div className={style.mainContainer}>
       <div className={style.content}>
-        <h2>Registration</h2>
-        <div>
-          <span style={{ color: 'red' }}> {errorPassMessage} </span>
-          <span style={{ color: 'red' }}> {errorNetworkMessage} </span>
-        </div>
+        <h2>SignUp</h2>
         <CustomInput
           placeholder="Email"
           typeInput="text"
@@ -102,14 +100,30 @@ export const SignUp = (): ReturnComponentType => {
           onChange={handleConfirmPassword}
           value={confirmPassword}
         />
-        <p>
-          {' '}
-          Have fun! <Link to={PATH.LOGIN}> Try loggin in </Link>{' '}
-        </p>
+        {errorPassMessage || errorNetworkMessage ? (
+          <div>
+            <span style={{ color: 'red' }}> {errorPassMessage} </span>
+            <span style={{ color: 'red' }}> {errorNetworkMessage} </span>
+          </div>
+        ) : (
+          <div />
+        )}
         <div className={styleRegister.btns}>
-          <CustomButton title="Cancel" onClick={onCancelButtonClick} />
           <CustomButton
-            title="Create"
+            style={{
+              maxWidth: '124px',
+              marginRight: '18px',
+              background: '#D7D8EF',
+              color: '#25142E',
+            }}
+            title="Cancel"
+            onClick={onCancelButtonClick}
+          />
+          <CustomButton
+            style={{
+              maxWidth: '187px',
+            }}
+            title="Register"
             onClick={onSendButtonClick}
             disabled={isLoading === requestStatus.loading}
           />

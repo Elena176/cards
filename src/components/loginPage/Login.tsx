@@ -65,7 +65,7 @@ export const Login = (): ReturnComponentType => {
         <CircularProgress />
       ) : (
         <div className={style.content}>
-          <h2> Login </h2>
+          <h2> SignIn </h2>
           {errorPassMessage && <span style={{ color: 'red' }}> {errorPassMessage} </span>}
           {errorNetworkMessage && (
             <span style={{ color: 'red' }}> {errorNetworkMessage} </span>
@@ -89,9 +89,9 @@ export const Login = (): ReturnComponentType => {
           <div>
             <Link to={PATH.CONFIRM_PASSWORD}> Forgot password </Link>
           </div>
-          <div style={{ minWidth: '50px' }}>
+          <div style={{ minWidth: '266px' }}>
             <CustomButton
-              title="Sign In"
+              title="Login"
               onClick={onClickHandleLogin}
               disabled={isLoading === requestStatus.loading}
             />
