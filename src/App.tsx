@@ -3,16 +3,15 @@ import React, { useEffect } from 'react';
 import { CircularProgress } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
-import { Header } from './components';
 import { RoutesPart } from './components/Routes/RoutesPart';
 import { useAppSelector } from './hooks';
 import styleApp from './style/App.module.css';
 import { ReturnComponentType } from './types';
 
-import { getIsDataLoaded, getStatus, initializeAppTC } from 'store';
+import { getStatus, initializeAppTC } from 'store';
 
 export const App = (): ReturnComponentType => {
-  const isAuth = useAppSelector(getIsDataLoaded);
+  /*  const isAuth = useAppSelector(getIsDataLoaded); */
   const isInitialized = useAppSelector(getStatus);
 
   const dispatch = useDispatch();
@@ -27,7 +26,7 @@ export const App = (): ReturnComponentType => {
 
   return (
     <div className={styleApp.app}>
-      {isAuth ? <Header /> : <div style={{ minHeight: '30px' }} />}
+      {/*  {isAuth ? <Header /> : <div style={{ minHeight: '30px' }} />} */}
       <div className={styleApp.layout}>
         <RoutesPart />
       </div>

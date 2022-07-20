@@ -7,9 +7,9 @@ import { ReturnComponentType } from '../../types';
 import { Cards } from '../cards';
 import { ConfirmPassword, CreateNewPassword, Popup } from '../confirmPassword';
 import { Login } from '../loginPage';
+import { PacksManagement } from '../packsManagement/PacksManagement';
 import { Profile } from '../profile';
 import { SignUp } from '../registrations';
-import { Table } from '../table';
 
 export const RoutesPart = (): ReturnComponentType => (
   <Routes>
@@ -25,6 +25,6 @@ export const RoutesPart = (): ReturnComponentType => (
     <Route path={PATH.CARDS} element={<Cards />}>
       <Route path=":cardsPack_id" element={<Cards />} />
     </Route>
-    <Route path={PATH.PACKS} element={<Table />} />
+    <Route path={PATH.PACKS} element={<PacksManagement />} />
   </Routes>
 );
