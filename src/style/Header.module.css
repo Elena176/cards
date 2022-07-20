@@ -1,13 +1,23 @@
-.containerHeader {
-    max-height: 30px;
+.mainContainer {
+    position: absolute;
+    width: 100%;
+    min-height: 60px;
     display: flex;
-    justify-content: space-between;
-    border-bottom: 2px solid black;
+    justify-content: center;
+    background: #EBE0E9;
 }
-.btnHeader {
-    max-width: 60px;
+.container {
+    display: flex;
+
+}
+.packsList {
+    width: 173px;
+    background-color: #DCCCDB;
+    text-align: center;
+    padding: 22px 0;
+    margin: 0 5px;
 }
 .link {
     text-decoration: none;
-    color: black;
+    color: #25142E;
 }
