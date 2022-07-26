@@ -4,23 +4,24 @@ import { CircularProgress } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { cardType } from '../../api/cardsApi';
-import { useAppSelector } from '../../hooks';
-import { getErrorNetworkMessage, getStatus } from '../../store';
+import { Modal } from '../customComponents';
+import styleModal from '../customComponents/modal/Modal.module.css';
+import { Pagination } from '../pagination';
+import styleTable from '../table/Table.module.css';
+
+import { DeleteCardModal } from './DeleteCardModal';
+
+import { cardType } from 'api/cardsApi';
+import { CustomButton, CustomInput } from 'components';
+import { useAppSelector } from 'hooks';
+import { getErrorNetworkMessage, getStatus } from 'store';
 import {
   addCardTC,
   getCardsTC,
   setCurrentPageCardsAC,
   updateCardTC,
-} from '../../store/reducers/cards';
-import { ReturnComponentType } from '../../types';
-import { CustomButton } from '../customButton';
-import { CustomInput } from '../customInput';
-import { DeleteCardModal } from '../ModalPortal/DeleteCardModal';
-import Modal from '../ModalPortal/ModalPortal';
-import styleModal from '../ModalPortal/ModalPortal.module.css';
-import { Pagination } from '../pagination';
-import styleTable from '../table/Table.module.css';
+} from 'store/reducers/cards';
+import { ReturnComponentType } from 'types';
 
 export const Cards = (): ReturnComponentType => {
   const errorNetworkMessage = useAppSelector(getErrorNetworkMessage);

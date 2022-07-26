@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import letter from '../../assets/letter.png';
-import { PATH } from '../../enum';
-import style from '../../style/Common.module.css';
-import stylePopup from '../../style/Popup.module.css';
+import letter from '../../../assets/letter.png';
+import style from '../../../style/Common.module.css';
+import stylePopup from '../../../style/Popup.module.css';
 
+import { PATH } from 'enum';
 import { ReturnComponentType } from 'types';
 
 const time = 3000;

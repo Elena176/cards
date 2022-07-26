@@ -4,8 +4,8 @@ import { CircularProgress } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 
-import styleLogin from '../../style/Login.module.css';
-import { CustomInput } from '../customInput';
+import styleLogin from '../../../style/Login.module.css';
+import { CustomInput } from '../../customComponents';
 
 import { CustomButton } from 'components';
 import { PATH, requestStatus } from 'enum';

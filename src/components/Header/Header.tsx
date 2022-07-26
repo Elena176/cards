@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import { PATH } from '../../enum';
 import { ReturnComponentType } from '../../types';
+import { User } from '../customComponents/user';
 
 import styleHeader from 'style/Header.module.css';
 
@@ -21,7 +22,11 @@ export const Header = (): ReturnComponentType => (
       <NavLink className={styleHeader.packsList} to={PATH.PACKS}>
         <span>PacksList</span>
       </NavLink>
-      <NavLink className={styleHeader.packsList} to={PATH.PROFILE}>
+      <NavLink
+        className={`${styleHeader.packsList} ${styleHeader.packsListProfile}`}
+        to={PATH.PROFILE}
+      >
+        <User size="15px" color="#2D2E46" />
         <span>Profile</span>
       </NavLink>
     </div>

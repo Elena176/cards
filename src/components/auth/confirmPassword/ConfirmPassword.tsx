@@ -4,12 +4,11 @@ import { CircularProgress } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 
-import { PATH, requestStatus } from '../../enum';
-import style from '../../style/Common.module.css';
-import { CustomButton } from '../customButton';
-import { CustomInput } from '../customInput';
+import style from '../../../style/Common.module.css';
 
 import { AddNewPassType } from 'api';
+import { CustomButton, CustomInput } from 'components';
+import { PATH, requestStatus } from 'enum';
 import { useAppSelector, useInput } from 'hooks';
 import {
   forgotPassAddEmailTC,
@@ -56,7 +55,7 @@ password recovery link: <a href="http://localhost:3000/#/createNewPassword/$toke
   };
 
   if (isShown) {
-    return <Navigate to="/popup" />;
+    return <Navigate to={PATH.POPUP} />;
   }
 
   return (
