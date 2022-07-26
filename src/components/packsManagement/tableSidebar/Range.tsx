@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 
 import style from './Range.module.css';
 
-export const SuperRange = (): any => {
+export const Range = (): any => {
   const initialValue = 0;
   const [number, setNumber] = useState<number>(initialValue);
   const onChangeRange = (e: ChangeEvent<HTMLInputElement>): void => {
