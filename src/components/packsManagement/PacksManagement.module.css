@@ -2,3 +2,13 @@
     position: relative;
     width: 100%;
 }
+.container {
+    position: absolute;
+    width: 1008px;
+    height: 500px;
+    margin: 84px 136px;
+    background: #FEFEFF;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+}

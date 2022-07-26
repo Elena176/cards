@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 
-import styleCustomButton from '../../style/CustomButton.module.css';
+import styleCustomButton from '../../../style/CustomButton.module.css';
 
 type ButtonPropsType = {
   title: string;

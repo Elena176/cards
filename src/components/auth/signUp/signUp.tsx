@@ -3,9 +3,9 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-import { RegisterParamsType } from '../../api';
-import { toggleIsSignUpAC } from '../../store/reducers/signUp';
-import styleRegister from '../../style/Registrations.module.css';
+import { RegisterParamsType } from '../../../api';
+import { toggleIsSignUpAC } from '../../../store/reducers/signUp';
+import styleRegister from '../../../style/Registrations.module.css';
 
 import { CustomButton, CustomInput } from 'components';
 import { PATH, requestStatus } from 'enum';

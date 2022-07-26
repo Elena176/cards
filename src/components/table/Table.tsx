@@ -4,8 +4,7 @@ import { CircularProgress } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 
-import { PATH, requestStatus } from '../../enum';
-import styleModal from '../ModalPortal/ModalPortal.module.css';
+import styleModal from '../customComponents/modal/Modal.module.css';
 import { Pagination } from '../pagination';
 
 import {
@@ -18,8 +17,9 @@ import {
 } from './decksTC';
 import styleTable from './Table.module.css';
 
-import { CustomButton, CustomInput, TableSidebar } from 'components/index';
-import Modal from 'components/ModalPortal/ModalPortal';
+import { Modal } from 'components/customComponents';
+import { CustomButton, CustomInput } from 'components/index';
+import { PATH, requestStatus } from 'enum';
 import { useAppSelector } from 'hooks';
 import { getErrorNetworkMessage, getIsDataLoaded, setErrorMessageNetworkAC } from 'store';
 import { getStatus } from 'store/selectors';
@@ -127,7 +127,6 @@ export const Table = (): ReturnComponentType => {
           </div>
 
           <div className={styleTable.tableWrapper}>
-            <TableSidebar />
             <div className={styleTable.tableContainer}>
               <div className={styleTable.table}>
                 <div className={styleTable.tableElName}>Name</div>

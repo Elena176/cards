@@ -5,9 +5,8 @@ import { useDispatch } from 'react-redux';
 import { setErrorMessageNetworkAC } from '../../store';
 import { removeCardTC } from '../../store/reducers/cards';
 import { ReturnComponentType } from '../../types';
-
-import Modal from './ModalPortal';
-import styleModal from './ModalPortal.module.css';
+import { Modal } from '../customComponents';
+import styleModal from '../customComponents/modal/Modal.module.css';
 
 export const DeleteCardModal: FC<DeleteCardModalPropsType> = ({
   cardId,

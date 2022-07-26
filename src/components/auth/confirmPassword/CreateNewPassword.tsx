@@ -4,11 +4,10 @@ import { CircularProgress } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { Navigate, useParams } from 'react-router-dom';
 
-import style from '../../style/Common.module.css';
-import { CustomButton } from '../customButton';
-import { CustomInput } from '../customInput';
+import style from '../../../style/Common.module.css';
 
 import { SetNewPassType } from 'api';
+import { CustomButton, CustomInput } from 'components';
 import { PATH, requestStatus } from 'enum';
 import { useAppSelector, useInput } from 'hooks';
 import {

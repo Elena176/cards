@@ -2,14 +2,13 @@ import React from 'react';
 
 import { Route, Routes } from 'react-router-dom';
 
-import { PATH } from '../../enum';
 import { ReturnComponentType } from '../../types';
+import { ConfirmPassword, CreateNewPassword, Popup, Login, SignUp } from '../auth';
 import { Cards } from '../cards';
-import { ConfirmPassword, CreateNewPassword, Popup } from '../confirmPassword';
-import { Login } from '../loginPage';
 import { PacksManagement } from '../packsManagement/PacksManagement';
 import { Profile } from '../profile';
-import { SignUp } from '../registrations';
+
+import { PATH } from 'enum';
 
 export const RoutesPart = (): ReturnComponentType => (
   <Routes>

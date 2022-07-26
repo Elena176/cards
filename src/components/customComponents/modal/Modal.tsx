@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { createPortal } from 'react-dom';
 
-import styleModal from './ModalPortal.module.css';
+import styleModal from './Modal.module.css';
 
 type ModalType = {
   title?: string;
@@ -10,7 +10,7 @@ type ModalType = {
   onClose: () => void;
   onSubmit?: () => void;
 };
-const Modal: FC<ModalType> = ({ isOpen, children, onClose }): any => {
+export const Modal: FC<ModalType> = ({ isOpen, children, onClose }): any => {
   if (!isOpen) {
     return null;
   }
@@ -30,4 +30,3 @@ const Modal: FC<ModalType> = ({ isOpen, children, onClose }): any => {
     document.getElementById('modal') as HTMLElement,
   );
 };
-export default Modal;

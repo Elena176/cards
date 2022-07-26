@@ -11,11 +11,17 @@
 
 }
 .packsList {
+    color:  #2D2E46;
     width: 173px;
     background-color: #DCCCDB;
     text-align: center;
-    padding: 22px 0;
+    padding: 22px 28px;
     margin: 0 5px;
+}
+.packsListProfile {
+   display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
 .link {
     text-decoration: none;
