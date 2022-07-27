@@ -4,17 +4,24 @@ import style from './Range.module.css';
 
 export const Range = (): any => {
   const initialValue = 0;
-  const [number, setNumber] = useState<number>(initialValue);
+  const allValue = 100;
+  const max = 100;
+  const [value, setValue] = useState<number>(initialValue);
   const onChangeRange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setNumber(+e.currentTarget.value);
+    setValue(+e.currentTarget.value);
   };
+  const backgroundSize = `${
+    ((value - initialValue) * allValue) / (max - initialValue)
+  }% 100%`;
+
   return (
-    <div>
-      {number}
+    <div className={style.container}>
+      <div className={style.value}>{value}</div>
       <input
+        style={{ backgroundSize }}
         type="range"
         onChange={onChangeRange}
-        value={number}
+        value={value}
         className={style.range}
       />
     </div>
