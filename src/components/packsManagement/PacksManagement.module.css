@@ -1,11 +1,13 @@
 .mainContainer {
     position: relative;
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
 .container {
-    width: 1008px;
+    width: 87%;
     height: 500px;
-    margin: 84px 136px;
+    margin: 84px 0;
     background: #FEFEFF;
     border-radius: 8px;
     display: flex;
